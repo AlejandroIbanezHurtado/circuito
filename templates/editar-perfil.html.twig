@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block lib %}
+    <script src="{{ asset('js/lib/lib-editarUsuario.js') }}"></script>
+{% endblock %}
 {% block titulo %}
   <h1 id="titulo">Perfil</h1>
   <style>
@@ -62,11 +65,20 @@
         margin-left: 1rem;
         margin-right: 1rem;
     }
+    input[type="file"] {
+    display: none;
+    }
+    #archivo{
+        cursor: pointer;
+    }
+    .bi-trash3{
+        cursor: pointer;
+    }
     </style>
 {% endblock %}
     
 {% block body %}
-    <div class="container-xl px-4 mt-4">
+    <div class="container-xl px-4 bg-negro">
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-xl-4">
@@ -75,71 +87,56 @@
                 <div class="card-header">Foto de perfil</div>
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG</div>
+                    {# <img class="img-account-profile rounded-circle mb-2" src="{{ asset('images/usuario.png') }}" alt="" id="imagen">
+                    <label class="imagenAlta" id="imagenPre" value="<?php if(isset($_SESSION['editarUsuario'])){echo $usuario->getImagen();} ?>"> #}
+
+                    <img class="rounded mb-2" id="imagen" src="{{ asset('images/usuario.png') }}">    
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Subir nueva imagen</button>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="file" class="bg-danger text-light rounded p-3" id="archivo">
+                                Subir imagen
+                            </label>
+                            <input id="file" type="file" onchange="previewFile();"/>
+                        </div>
+                        <div class="col-md-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" id="eliminarFoto">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                        </svg>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
         <div class="col-xl-8">
             <!-- Account details card-->
             <div class="card mb-4">
-                <div class="card-header">Account Details</div>
+                <div class="card-header">Datos de tu cuenta</div>
                 <div class="card-body">
                     <form>
-                        <!-- Form Group (username)-->
+                        <!-- Form Group (email)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <input class="form-control" id="inputEmailAddress" readonly type="email" value="{{app.user}}">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">First name</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                <label class="small mb-1" for="inputFirstName">Nombre</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Introduce tu nombre" value="{{app.user.nombre}}">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
-                            </div>
-                        </div>
-                        <!-- Form Row        -->
-                        <div class="row gx-3 mb-3">
-                            <!-- Form Group (organization name)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputOrgName">Organization name</label>
-                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
-                            </div>
-                            <!-- Form Group (location)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Location</label>
-                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
-                            </div>
-                        </div>
-                        <!-- Form Group (email address)-->
-                        <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
-                        </div>
-                        <!-- Form Row-->
-                        <div class="row gx-3 mb-3">
-                            <!-- Form Group (phone number)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
-                            </div>
-                            <!-- Form Group (birthday)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                <label class="small mb-1" for="inputLastName">Apellidos</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Introduce tus apellidos" value="{{app.user.apellidos}}">
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button">Save changes</button>
+                        <button class="btn btn-danger" type="button">Guardar cambios</button>
                     </form>
                 </div>
             </div>
