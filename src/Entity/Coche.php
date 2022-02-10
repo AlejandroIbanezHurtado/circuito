@@ -98,4 +98,9 @@ class Coche
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return strval($this->modelo);
+    }
 }

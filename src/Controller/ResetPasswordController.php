@@ -51,9 +51,10 @@ class ResetPasswordController extends AbstractController
                 $mailer
             );
         }
-
+        $sesion = "nada";
         return $this->render('reset_password/request.html.twig', [
             'requestForm' => $form->createView(),
+            'sesion' => $sesion
         ]);
     }
 
@@ -69,9 +70,10 @@ class ResetPasswordController extends AbstractController
         if (null === ($resetToken = $this->getTokenObjectFromSession())) {
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
-
+        $sesion = "nada";
         return $this->render('reset_password/check_email.html.twig', [
             'resetToken' => $resetToken,
+            'sesion' => $sesion
         ]);
     }
 
@@ -128,9 +130,10 @@ class ResetPasswordController extends AbstractController
 
             return $this->redirectToRoute('login');
         }
-
+        $sesion = "nada";
         return $this->render('reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
+            'sesion' => $sesion
         ]);
     }
 

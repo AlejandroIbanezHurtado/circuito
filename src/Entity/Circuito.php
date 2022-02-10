@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CircuitoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CircuitoRepository::class)
@@ -19,16 +20,18 @@ class Circuito
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
      */
     private $tramo;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $precio_circuito;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $foto;
 
@@ -61,12 +64,12 @@ class Circuito
         return $this;
     }
 
-    public function getFoto()
+    public function getFoto(): ?string
     {
         return $this->foto;
     }
 
-    public function setFoto($foto): self
+    public function setFoto(?string $foto): self
     {
         $this->foto = $foto;
 

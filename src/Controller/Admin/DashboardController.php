@@ -5,7 +5,10 @@ namespace App\Controller\Admin;
 use App\Entity\Coche;
 use App\Entity\Marca;
 use App\Entity\Modelo;
+use App\Entity\Reserva;
 use App\Entity\Usuario;
+use App\Entity\Circuito;
+use App\Entity\DetalleReserva;
 use App\Controller\Admin\MarcaCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,5 +55,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Modelos', 'fas fa-list', Modelo::class);
         yield MenuItem::linkToCrud('Coches', 'fas fa-list', Coche::class);
         yield MenuItem::linkToCrud('Usuarios', 'fas fa-list', Usuario::class);
+        yield MenuItem::linkToCrud('Circuito', 'fas fa-list', Circuito::class);
+        yield MenuItem::linkToCrud('Reservas circuito', 'fas fa-list', Reserva::class);
+        yield MenuItem::linkToCrud('Reservas coche + circuito', 'fas fa-list', DetalleReserva::class);
     }
 }

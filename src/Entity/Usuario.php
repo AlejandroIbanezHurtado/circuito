@@ -59,6 +59,11 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $apellidos;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagen;
+
     public function __construct()
     {
         $this->reservas = new ArrayCollection();
@@ -215,6 +220,23 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApellidos(string $apellidos): self
     {
         $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->email;
+    }
+
+    public function getImagen(): ?string
+    {
+        return $this->imagen;
+    }
+
+    public function setImagen(?string $imagen): self
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }

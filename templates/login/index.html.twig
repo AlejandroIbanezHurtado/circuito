@@ -6,19 +6,31 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-
-        {# If you want to control the URL the user is redirected to on success#}
-        <input type="hidden" name="_target_path" value="index"/>
-
-        <button type="submit">login</button>
-    </form>
+    <div class="site-section pt-0 pb-0 bg-negro">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+                <form action="{{ path('login') }}" method="post" class="trip-form">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-6">
+                            <label for="username">Email:</label>
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-select form-control"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="_password" class="form-select form-control"/>
+                        </div>
+                        {# If you want to control the URL the user is redirected to on success#}
+                        <input type="hidden" name="_target_path" value="index" class="form-select form-control"/>
+                        <a href="register" class="form-select col-md-12">¿Aún no estás registrado?</a>
+                        <button type="submit" class="btn btn-danger ml-4 mt-4">Iniciar sesion</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}

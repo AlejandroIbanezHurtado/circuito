@@ -62,4 +62,13 @@ class PruebaController extends AbstractController
         return $this->render('ranking.html.twig', [
         ]);
     }
+
+    /**
+     * @Route("/perfil", name="perfil")
+     */
+    public function perfil(): Response
+    {
+        return $this->render('perfil.html.twig', [
+        ]);
+    }
 }

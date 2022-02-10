@@ -30,6 +30,7 @@ class DetalleReserva
 
     /**
      * @ORM\ManyToOne(targetEntity=Reserva::class, inversedBy="detalleReservas")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $reserva;
 

@@ -20,14 +20,14 @@ class Reserva
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(name="fecha", type="datetime", options={"default"= "CURRENT_TIMESTAMP"})
      */
     private $fecha;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $precio;
+    private $precio=50;
 
     /**
      * @ORM\ManyToOne(targetEntity=Usuario::class, inversedBy="reservas")
@@ -46,7 +46,7 @@ class Reserva
     private $fecha_inicio;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $fecha_fin;
 
