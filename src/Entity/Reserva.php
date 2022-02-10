@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservaRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservaRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ReservaRepository::class)
@@ -20,7 +21,7 @@ class Reserva
     private $id;
 
     /**
-     * @ORM\Column(name="fecha", type="datetime", options={"default"= "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
     private $fecha;
 
@@ -57,6 +58,8 @@ class Reserva
 
     public function __construct()
     {
+        // $date = new DateTime();
+        $this->fecha = new DateTime();
         $this->detalleReservas = new ArrayCollection();
     }
 
@@ -68,13 +71,6 @@ class Reserva
     public function getFecha(): ?\DateTimeInterface
     {
         return $this->fecha;
-    }
-
-    public function setFecha(\DateTimeInterface $fecha): self
-    {
-        $this->fecha = $fecha;
-
-        return $this;
     }
 
     public function getPrecio(): ?float

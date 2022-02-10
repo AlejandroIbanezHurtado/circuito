@@ -9,6 +9,8 @@ use App\Entity\Reserva;
 use App\Entity\Usuario;
 use App\Entity\Circuito;
 use App\Entity\DetalleReserva;
+use App\Entity\ValoracionCoche;
+use App\Entity\ValoracionCircuito;
 use App\Controller\Admin\MarcaCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,7 +58,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Coches', 'fas fa-list', Coche::class);
         yield MenuItem::linkToCrud('Usuarios', 'fas fa-list', Usuario::class);
         yield MenuItem::linkToCrud('Circuito', 'fas fa-list', Circuito::class);
-        yield MenuItem::linkToCrud('Reservas circuito', 'fas fa-list', Reserva::class);
-        yield MenuItem::linkToCrud('Reservas coche + circuito', 'fas fa-list', DetalleReserva::class);
+        yield MenuItem::linkToCrud('Reservas', 'fas fa-list', Reserva::class);
+        yield MenuItem::linkToCrud('Valoracion circuito', 'fas fa-list', ValoracionCircuito::class);
+        yield MenuItem::linkToCrud('Valoracion coche', 'fas fa-list', ValoracionCoche::class);
     }
 }

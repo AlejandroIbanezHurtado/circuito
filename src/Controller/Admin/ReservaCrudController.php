@@ -22,11 +22,11 @@ class ReservaCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            AssociationField::new('usuario'),
-            AssociationField::new('valoracionCircuito','Valoración'),
-            DateTimeField::new('fecha_inicio','Fecha de inicio'),
-            TimeField::new('fecha_fin','Fecha de fin'),
-            NumberField::new('precio')->hideOnForm()
+            AssociationField::new('usuario')->hideWhenCreating(),
+            AssociationField::new('valoracionCircuito','Valoración')->hideWhenCreating(),
+            DateTimeField::new('fecha_inicio','Fecha de inicio')->hideWhenCreating(),
+            TimeField::new('fecha_fin','Fecha de fin')->hideWhenCreating(),
+            NumberField::new('precio')->hideOnForm()->hideWhenCreating()
         ];
     }
     
