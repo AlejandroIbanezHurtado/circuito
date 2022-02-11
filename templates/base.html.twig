@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Car Rent &mdash; Free Website Template by Colorlib</title>
+    <title>Circuito Alcázar</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -65,19 +65,26 @@
                   <li><a href="servicios" class="nav-link">Servicios</a></li>
                   <li><a href="vehiculos" class="nav-link">Vehículos</a></li>
                   <li><a href="conocenos" class="nav-link">Conócenos</a></li>
+                  {% if app.user.email is defined %}
                   <li>
-                    <a href=
-                    {% if app.user.email is defined %} 
-                    "perfil" 
-                    {% else %}
-                    "login"
-                    {% endif %} class="nav-link">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <div class="dropdown show">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('{{ asset('images/usuario.png')}}'); height: 50px; width: 50px; background-size: 48px 48px; background-repeat: no-repeat;"></button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                          <button class="dropdown-item" type="button"><a href="perfil" class="text-dark">Editar perfil</a></button>
+                          <button class="dropdown-item" type="button"><a href="logout" class="text-danger">Cerrar sesión</a></button>
+                        </div>
+                      </div>
+                  </li>
+                  {% else %}
+                  <li>
+                  <a href="login">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                       </svg>
-                    </a>
-                  </li>{#si ya esta logeado aparece su foto de perfil#}          
+                  </a>
+                  </li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>
@@ -150,18 +157,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-            </div>
-          </div>
-
         </div>
       </div>
     </footer>

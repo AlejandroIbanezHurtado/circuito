@@ -28,7 +28,7 @@ class UsuarioCrudController extends AbstractCrudController
             TextField::new('password'),
             ArrayField::new('roles'),
             ImageField::new('imagen')->setUploadDir('public/bd'),
-            BooleanField::new('isVerified')
+            BooleanField::new('isVerified','Verificado')
         ];
     }
 }

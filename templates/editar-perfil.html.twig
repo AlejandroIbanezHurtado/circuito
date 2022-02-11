@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block lib %}
     <script src="{{ asset('js/lib/lib-editarUsuario.js') }}"></script>
+    <script src="{{ asset('js/lib/usuario.js') }}"></script>
 {% endblock %}
 {% block titulo %}
   <h1 id="titulo">Perfil</h1>
@@ -98,7 +99,7 @@
                             <label for="file" class="bg-danger text-light rounded p-3" id="archivo">
                                 Subir imagen
                             </label>
-                            <input id="file" type="file" onchange="previewFile();"/>
+                            <input id="file" type="file" onchange="previewFile();" name="imagen"/>
                         </div>
                         <div class="col-md-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" id="eliminarFoto">
@@ -116,27 +117,27 @@
             <div class="card mb-4">
                 <div class="card-header">Datos de tu cuenta</div>
                 <div class="card-body">
-                    <form>
+                    <form id="formulario">
                         <!-- Form Group (email)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" readonly type="email" value="{{app.user}}">
+                            <label class="small mb-1" for="inputEmailAddress">Correo</label>
+                            <input class="form-control" id="inputEmailAddress" readonly type="email" value="{{app.user}}" name="correo">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Introduce tu nombre" value="{{app.user.nombre}}">
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Introduce tu nombre" value="{{app.user.nombre}}" name="nombre">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Apellidos</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Introduce tus apellidos" value="{{app.user.apellidos}}">
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Introduce tus apellidos" value="{{app.user.apellidos}}" name="apellidos">
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-danger" type="button">Guardar cambios</button>
+                        <button class="btn btn-danger" type="button" id="botonGuardar">Guardar cambios</button>
                     </form>
                 </div>
             </div>
