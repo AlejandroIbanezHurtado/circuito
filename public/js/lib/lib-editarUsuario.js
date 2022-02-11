@@ -4,13 +4,24 @@ $(function(){
     var form = document.getElementById("formulario");
 
     guardar.on("click",function(){
-        console.log(creaJson());
+        // $.ajax({
+        //     type: "POST",
+        //     url: '/api/editaUsuario',
+        //     data: creaJson(),
+        //     success: function(data){
+        //     console.log(data);
+        //     },
+        //     error: function(xhr, status, error){
+        //     console.error(xhr);
+        //     }
+        //    });
+        $.post( "/api/editaUsuario", creaJson() );
     })
 
     function creaJson(){
         array = $(form).serializeArray();
         user = new usuario(array[0],array[1],array[2],imagen.attr("ruta"));
-        return JSON.stringify(user);
+        return user;
     }
 })
 function previewFile(input){

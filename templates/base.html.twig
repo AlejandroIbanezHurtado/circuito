@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/flaticon/font/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/css.css') }}">
     <link rel="stylesheet" href="{{ asset('//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css') }}">
 
     <!-- MAIN CSS -->
@@ -68,7 +69,12 @@
                   {% if app.user.email is defined %}
                   <li>
                     <div class="dropdown show">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('{{ asset('images/usuario.png')}}'); height: 50px; width: 50px; background-size: 48px 48px; background-repeat: no-repeat;"></button>
+                        <a class="btn dropdown-toggle">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                          </svg>
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                           <button class="dropdown-item" type="button"><a href="perfil" class="text-dark">Editar perfil</a></button>
                           <button class="dropdown-item" type="button"><a href="logout" class="text-danger">Cerrar sesión</a></button>
@@ -78,7 +84,7 @@
                   {% else %}
                   <li>
                   <a href="login">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                       </svg>

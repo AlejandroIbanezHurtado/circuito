@@ -30,9 +30,35 @@ class UsuarioController extends AbstractController
         $serializer = new Serializer([$normalizer], [$encoder]);
         $todos = $doctrine->getRepository(Usuario::class)->findAll();
         var_dump($serializer->serialize($todos, 'json'));
-        // {"name":"Les-Tilleuls.coop","members":[{"name":"K\u00e9vin", organization: "Les-Tilleuls.coop"}]}
         return $this->render('usuario/index.html.twig', [
             'controller_name' => 'UsuarioController',
         ]);
+    }
+
+    /**
+     * @Route("/api/editaUsuario", name="editaUsuario")
+     */
+    public function editaUsuario(ManagerRegistry $doctrine): Response
+    {
+        if(empty($_SESSION))
+        {
+            session_start();
+        }
+        $correo = $_SESSION['_sf2_attributes']['_security.last_username'];
+        
+        // var_dump($_POST["correo"]["value"]);
+        $user = new Usuario();
+        $user->setEmail($_POST["correo"]["value"]);
+        $user->setNombre($_POST["nombre"]["value"]);
+        $user->setApellidos($_POST["apellidos"]["value"]);
+        // $user->setImagen($_POST["imagen"]["value"]);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->render('api/index.html.twig', [
+            "respuesta" => $_POST
+        ]);
+        // return new Response($_SESSION);
     }
 }
