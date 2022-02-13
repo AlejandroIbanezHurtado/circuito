@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UsuarioRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UsuarioRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
@@ -24,6 +25,8 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
+     * @Assert\Email(
+     *     message = "El email '{{ value }}' es inválido.")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -50,11 +53,23 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     private $reservas;
 
     /**
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "El nombre debe de tener como mínimo {{ limit }} caracteres",
+     *      maxMessage = "El nombre no debe de ser mayor a {{ limit }} caracteres"
+     * )
      * @ORM\Column(type="string", length=30)
      */
     private $nombre;
 
     /**
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 70,
+     *      minMessage = "Los apellidos deben de tener como mínimo {{ limit }} caracteres",
+     *      maxMessage = "Los apellidos no deben de ser mayor a {{ limit }} caracteres"
+     * )
      * @ORM\Column(type="string", length=70)
      */
     private $apellidos;

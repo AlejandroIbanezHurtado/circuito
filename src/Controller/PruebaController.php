@@ -64,6 +64,7 @@ class PruebaController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/perfil", name="perfil")
      */
     public function perfil(): Response

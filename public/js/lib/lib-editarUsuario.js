@@ -4,18 +4,18 @@ $(function(){
     var form = document.getElementById("formulario");
 
     guardar.on("click",function(){
-        // $.ajax({
-        //     type: "POST",
-        //     url: '/api/editaUsuario',
-        //     data: creaJson(),
-        //     success: function(data){
-        //     console.log(data);
-        //     },
-        //     error: function(xhr, status, error){
-        //     console.error(xhr);
-        //     }
-        //    });
-        $.post( "/api/editaUsuario", creaJson() );
+        $.ajax({
+            type: "POST",
+            url: '/api/editaUsuario',
+            data: creaJson(),
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                mensaje = $("<div>").addClass("alert alert-danger mt-3").attr("role","alert").text("Error. Los cambios no se han guardado");
+                guardar.after(mensaje);
+            }
+           });
     })
 
     function creaJson(){

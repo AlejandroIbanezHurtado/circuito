@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -38,27 +39,32 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/api/editaUsuario", name="editaUsuario")
      */
-    public function editaUsuario(ManagerRegistry $doctrine): Response
+    public function editaUsuario(ManagerRegistry $doctrine, ValidatorInterface $validator): Response
     {
         if(empty($_SESSION))
         {
             session_start();
         }
         $correo = $_SESSION['_sf2_attributes']['_security.last_username'];
-        
-        // var_dump($_POST["correo"]["value"]);
-        $user = new Usuario();
-        $user->setEmail($_POST["correo"]["value"]);
+
+        $repository = $doctrine->getRepository(Usuario::class);
+        $user = $repository->findOneBy(array('email' => $correo));
         $user->setNombre($_POST["nombre"]["value"]);
         $user->setApellidos($_POST["apellidos"]["value"]);
         // $user->setImagen($_POST["imagen"]["value"]);
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+
+        $errores = $validator->validate($user);
+        if(empty($errores))
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+
+        $serializer = new Serializer();
 
         return $this->render('api/index.html.twig', [
-            "respuesta" => $_POST
+            "respuesta" => $errores
         ]);
-        // return new Response($_SESSION);
     }
 }
