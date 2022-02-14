@@ -49,19 +49,25 @@ class UsuarioController extends AbstractController
 
         $repository = $doctrine->getRepository(Usuario::class);
         $user = $repository->findOneBy(array('email' => $correo));
-        $user->setNombre($_POST["nombre"]["value"]);
-        $user->setApellidos($_POST["apellidos"]["value"]);
-        // $user->setImagen($_POST["imagen"]["value"]);
+        $user->setNombre($_POST["nombre"]);
+        $user->setApellidos($_POST["apellidos"]);
+
+        if(isset($_FILES['file']))
+        {
+            $nombre = "images/".time().rand(1,99999).$_FILES['file']['name'];
+            move_uploaded_file($_FILES["file"]["tmp_name"], $nombre);
+            $imagenAntigua = $user->getImagen();
+            $user->setImagen($nombre);
+        }
 
         $errores = $validator->validate($user);
-        if(empty($errores))
+        if(count($errores)==0)
         {
+            if(isset($_FILES['file'])) if($imagenAntigua!=null) unlink($imagenAntigua);
             $entityManager = $doctrine->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
         }
-
-        $serializer = new Serializer();
 
         return $this->render('api/index.html.twig', [
             "respuesta" => $errores

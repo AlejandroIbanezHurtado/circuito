@@ -1,34 +1,46 @@
 $(function(){
     var guardar = $("#botonGuardar");
-    var imagen = $("#imagen");
-    var form = document.getElementById("formulario");
+    var nombre = $("#inputFirstName");
+    var apellidos = $("#inputLastName");
 
     guardar.on("click",function(){
+        spinner = $("<div>").addClass("spinner-border text-danger").attr("id","cargando").attr("role","status").append($("span").addClass("sr-only").text("Loading..."));
+        $("#carga").append(spinner);
+        var formData = new FormData();
+        var files = $('#file')[0].files[0];
+        formData.append('file',files);
+        formData.append('nombre',nombre.val());
+        formData.append('apellidos',apellidos.val());
         $.ajax({
-            type: "POST",
             url: '/api/editaUsuario',
-            data: creaJson(),
-            success: function(data){
-                console.log(data);
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            complete: function(){
+                $("div").remove("#cargando");
+            },
+            success: function(response) {
+                $("div").remove(".cambios");
+                mensaje = $("<div>").addClass("alert alert-success mt-3").attr("role","alert").text("Los cambios se han guardado correctamente").addClass("cambios");
+                $("#final").after(mensaje);
+
+                //recojer en response los errores y listarlos en rojo
             },
             error: function(){
-                mensaje = $("<div>").addClass("alert alert-danger mt-3").attr("role","alert").text("Error. Los cambios no se han guardado");
-                guardar.after(mensaje);
+                $("div").remove(".cambios");
+                mensaje = $("<div>").addClass("alert alert-success mt-3").attr("role","alert").text("Los cambios se han guardado correctamente").addClass("cambios");
+                $("#final").after(mensaje);
             }
-           });
+        });
     })
-
-    function creaJson(){
-        array = $(form).serializeArray();
-        user = new usuario(array[0],array[1],array[2],imagen.attr("ruta"));
-        return user;
-    }
 })
 function previewFile(input){
     var file = $("input[type=file]").get(0).files[0];
     var eliminar = $("#eliminarFoto");
 
     eliminar.on("click",function(){
+        $('#file')[0].files[0]=null;
         $("#imagen").attr("src", "http://localhost:8000/images/usuario.png").css("width", "128px");
     })
 

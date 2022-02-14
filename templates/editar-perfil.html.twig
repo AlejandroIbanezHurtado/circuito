@@ -89,7 +89,7 @@
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
 
-                    <img class="rounded mb-2" id="imagen" src="{{ asset('images/usuario.png') }}">    
+                    <img class="rounded mb-2" id="imagen" src={% if app.user.imagen != null %}"{{ asset(app.user.imagen) }}"{% else %}"{{ asset('images/usuario.png') }}"{% endif %} width="150px">    
                     <!-- Profile picture upload button-->
                     <br>
                     <div class="row">
@@ -97,7 +97,7 @@
                             <label for="file" class="bg-danger text-light rounded p-3" id="archivo">
                                 Subir imagen
                             </label>
-                            <input id="file" type="file" onchange="previewFile();" name="imagen"/>
+                            <input id="file" type="file" onchange="previewFile();" accept="image/png, image/gif, image/jpeg" name="imagen"/>
                         </div>
                         <div class="col-md-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" id="eliminarFoto">
@@ -135,7 +135,12 @@
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-danger" type="button" id="botonGuardar">Guardar cambios</button>
+                        <div class="row" id="final">
+                        <div class="col-md-6">
+                            <button class="btn btn-danger" type="button" id="botonGuardar">Guardar cambios</button>
+                        </div>
+                        <div class="col-md-6" id="carga"></div>
+                        </div>
                     </form>
                 </div>
             </div>
