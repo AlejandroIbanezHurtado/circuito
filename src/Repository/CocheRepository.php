@@ -19,6 +19,35 @@ class CocheRepository extends ServiceEntityRepository
         parent::__construct($registry, Coche::class);
     }
 
+    public function countCoche()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+    }
+    // SELECT * FROM comentarios ORDER BY rand() LIMIT 1;
+    public function findAleatorios()
+    {
+        $criteria = array_rand(array(
+            't.id' => 'loquesea',
+            't.precio' => 'loquesea',
+            't.modelo' => 'loquesea'
+          ));
+        $orderby = array_rand(array(
+            'DESC' => 'DESC',
+            'ASC' => 'ASC'
+          ));
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->orderBy($criteria, $orderby)
+            ->setMaxResults(5)
+            ->getQuery()
+            ->execute();
+
+    }
+
     // /**
     //  * @return Coche[] Returns an array of Coche objects
     //  */

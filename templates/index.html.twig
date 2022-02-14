@@ -2,6 +2,9 @@
 {% block titulo %}
   <h1 id="titulo">Bienvenido/a</h1>
 {% endblock %}
+{% block lib %}
+  <script src="{{ asset('js/lib/lib-index.js') }}"></script>
+{% endblock %}
 {% block body %}
     <div class="site-section pt-0 pb-0 bg-light">
       <div class="container">
@@ -13,7 +16,11 @@
                     <h3 class="m-0">Escoge la hora y el día</h3>
                   </div>
                   <div class="col-md-6 text-md-right">
-                    <span class="text-danger">32</span>{#Campo calculado de coches totales#}
+                    <span class="text-danger" id="n_coches">
+                      <div class="spinner-border text-danger" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </span>{#Campo calculado de coches totales#}
                     <span>coches disponibles</span></span>
                   </div>
                 </div>
@@ -74,7 +81,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <h3>Mejores votados</h3>{#5 primeros cochce con mejores valoraciones traidos de la BD#}
+            <h3>Algunos de nuestros coches</h3>{#5 primeros cochce con mejores valoraciones traidos de la BD#}
             <p class="mb-4">En nuestra web podrás valorar nuestros coches depsues de cada experiencia</p>
             <p>
               <a href="#" class="btn btn-secondary custom-prev">Anterior</a>

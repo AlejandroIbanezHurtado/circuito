@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\DetalleReservaRepository;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DetalleReservaRepository;
 
 /**
  * @ORM\Entity(repositoryClass=DetalleReservaRepository::class)
  */
-class DetalleReserva
+class DetalleReserva implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -83,5 +84,9 @@ class DetalleReserva
         $this->reserva = $reserva;
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

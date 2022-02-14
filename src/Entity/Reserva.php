@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTime;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservaRepository;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity(repositoryClass=ReservaRepository::class)
  */
-class Reserva
+class Reserva implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -171,5 +172,9 @@ class Reserva
         }
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CircuitoRepository;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CircuitoRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CircuitoRepository::class)
  */
-class Circuito
+class Circuito implements JsonSerializable
 {
     /**
      * @ORM\Id

@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\CocheRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CocheRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CocheRepository::class)
  */
-class Coche
+class Coche implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -102,5 +103,9 @@ class Coche
     public function __toString()
     {
         return strval($this->modelo);
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

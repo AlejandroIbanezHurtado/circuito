@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ModeloRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ModeloRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ModeloRepository::class)
  */
-class Modelo
+class Modelo implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -119,5 +120,9 @@ class Modelo
         $this->imagen = $imagen;
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

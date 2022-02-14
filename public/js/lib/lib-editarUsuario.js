@@ -29,7 +29,7 @@ $(function(){
             },
             error: function(){
                 $("div").remove(".cambios");
-                mensaje = $("<div>").addClass("alert alert-success mt-3").attr("role","alert").text("Los cambios se han guardado correctamente").addClass("cambios");
+                mensaje = $("<div>").addClass("alert alert-danger mt-3").attr("role","alert").text("ERROR. Los cambios no se han podido guardar").addClass("cambios");
                 $("#final").after(mensaje);
             }
         });

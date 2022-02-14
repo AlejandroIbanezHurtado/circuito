@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
+class Usuario implements UserInterface, PasswordAuthenticatedUserInterface, JsonSerializable
 {
     /**
      * @ORM\Id
@@ -254,5 +255,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         $this->imagen = $imagen;
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }

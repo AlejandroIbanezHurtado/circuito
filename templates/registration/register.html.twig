@@ -5,21 +5,54 @@
 {% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+<style>
+input.aceptar{
+    height: 20px
+}
+</style>
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.nombre) }}
-        {{ form_row(registrationForm.apellidos) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="site-section pt-0 pb-0 bg-negro">
+      <div class="container">
+        <div class="row">
+        {% if form_errors(registrationForm.email) != "" %}
+            <div class="alert alert-danger" role="alert">{{ form_errors(registrationForm.email) }}</div>
+        {% endif %}
+          <div class="col-12">
+            <p class="text-white bg-negro">Se enviará un correo electrónico de verificación</p>
+                {{ form_start(registrationForm) }}
+                    <div class="row align-items-center mb-4">
+                        {% for flashError in app.flashes('verify_email_error') %}
+                            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                        {% endfor %}
+                        <div class="col-md-12 mb-4">
+                            <label for="registration_form_email" class="text-white">Correo:</label>
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form select form-control'}}) }}
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="registration_form_nombre" class="text-white">Nombre:</label>
+                            {{ form_widget(registrationForm.nombre, {'attr': {'class': 'form select form-control'}}) }}
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="registration_form_apellidos" class="text-white">Apellidos:</label>
+                            {{ form_widget(registrationForm.apellidos, {'attr': {'class': 'form select form-control'}}) }}
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <label for="registration_form_plainPassword" class="text-white">Contraseña:</label>
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form select form-control'}}) }}
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="registration_form_agreeTerms" class="text-white">Acepto los términos y condiciones</label>
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form select form-control aceptar'}}) }}
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            <input type="hidden" name="_target_path" value="login" class="form-select form-control"/>
+                            <button type="submit" class="btn btn-danger ml-4 mt-4">Registrarse</button>
+                        </div>
+                        
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+      </div>
+    </div>
 {% endblock %}

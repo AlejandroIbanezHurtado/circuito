@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ValoracionCircuitoRepository;
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ValoracionCircuitoRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ValoracionCircuitoRepository::class)
  */
-class ValoracionCircuito
+class ValoracionCircuito implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -71,5 +72,9 @@ class ValoracionCircuito
         $this->reserva = $reserva;
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return get_object_vars($this);
     }
 }
