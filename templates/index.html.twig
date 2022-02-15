@@ -6,7 +6,28 @@
   <script src="{{ asset('js/lib/lib-index.js') }}"></script>
 {% endblock %}
 {% block body %}
-    <div class="site-section pt-0 pb-0 bg-light">
+<style>
+.slide{
+  min-height: 0px;
+}
+.ratings {
+    margin-right: 10px
+}
+
+.ratings i {
+    color: #cecece;
+    font-size: 32px
+}
+
+.rating-color {
+    color: #fbc634 !important
+}
+
+.comentario-sub{
+  height: 300px;
+}
+</style>
+    <div class="site-section section-1 pt-0 pb-0 bg-light">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -17,9 +38,7 @@
                   </div>
                   <div class="col-md-6 text-md-right">
                     <span class="text-danger" id="n_coches">
-                      <div class="spinner-border text-danger" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
+                      <div class="spinner-border text-danger" role="status"></div>
                     </span>{#Campo calculado de coches totales#}
                     <span>coches disponibles</span></span>
                   </div>
@@ -55,7 +74,7 @@
                   </div>
                   <div class="form-group col-md-3">
                     <label for="cf-3">Marca</label>
-                    <select id="cf-2" class="form-select form-control" aria-label="Default select example">
+                    <select id="cf-3" class="form-select form-control" aria-label="Default select example">
                       <option selected value="0">-Selecciona marca-</option>{#Se rellena en funcion de las marcas que existen en la BD#}
                     </select>
                   </div>
@@ -77,109 +96,33 @@
 
     
 
-    <div class="site-section bg-light">
+    <div class="site-section pb-0 bg-light">
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <h3>Algunos de nuestros coches</h3>{#5 primeros cochce con mejores valoraciones traidos de la BD#}
+            <h3>Mejores valoraciones</h3>{#5 primeros cochce con mejores valoraciones traidos de la BD#}
             <p class="mb-4">En nuestra web podrás valorar nuestros coches depsues de cada experiencia</p>
             <p>
-              <a href="#" class="btn btn-secondary custom-prev">Anterior</a>
-              <span class="mx-2">/</span>
-              <a href="#" class="btn btn-secondary custom-next">Siguiente</a>
+              <button href="#" class="btn btn-secondary custom-prev" data-bs-target="#carouselExampleFade" data-bs-slide="prev">Anterior</button>
+              <button href="#" class="btn btn-secondary custom-next" data-bs-target="#carouselExampleFade" data-bs-slide="next">Siguiente</button>
             </p>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-9 mb-0">
 
-
-
-
-            <div class="nonloop-block-13 owl-carousel">
-              <div class="item-1">
-                <a href="#"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#" class="text-danger">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-danger">Rent Now</a>
-                  </div>
-                </div>
+            <div id="carouselExampleFade" class="carousel slide carousel-fade mb-0" data-bs-ride="carousel">
+              <div class="carousel-inner" id="carrusel">
+                <div class="spinner-border text-danger" role="status" id="spiner"></div>
               </div>
-
-
-              <div class="item-1">
-                <a href="#"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#" class="text-danger">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-danger">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-
             </div>
-            
+
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section section-3" style="background-image: url('images/hero_2.jpg');">
+
+
+    <div class="site-section section-3 mt-0">
       <div class="container">
         <div class="row">
           <div class="col-12 text-center mb-5">
@@ -228,41 +171,44 @@
       <div class="container">
         <div class="row justify-content-center text-center mb-5">
           <div class="col-7 text-center mb-5">
-            <h2>Últimas valoraciones</h2>{#Las últimas valoraciones aparecen aquí#}
+            <h2>Valoraciones</h2>{#Las últimas valoraciones aparecen aquí#}
             <p>Comenta tu experiencia, aquí aparecen las últimas valoraciones. Somos sinceros</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-4 mb-4 mb-lg-0">
-            <div class="testimonial-2">
+          <div class="col-lg-4 mb-4 mb-lg-0 comentario overflow-auto">
+            <div class="testimonial-2 rounded comentario-sub">
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <div class="spinner-border text-danger" role="status"></div>
+                <p></p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
-                <img src="images/person_1.jpg" alt="Image" class="img-fluid mr-3">
-                <span>Mike Fisher</span>
+                <img src="images/usuario.png" alt="Image" class="img-fluid mr-3">
+                <span></span>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 mb-4 mb-lg-0">
-            <div class="testimonial-2">
+          <div class="col-lg-4 mb-4 mb-lg-0 comentario">
+            <div class="testimonial-2 rounded comentario-sub">
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <div class="spinner-border text-danger" role="status"></div>
+                <p></p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
-                <img src="images/person_2.jpg" alt="Image" class="img-fluid mr-3">
-                <span>Jean Stanley</span>
+                <img src="images/usuario.png" alt="Image" class="img-fluid mr-3">
+                <span></span>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 mb-4 mb-lg-0">
-            <div class="testimonial-2">
+          <div class="col-lg-4 mb-4 mb-lg-0 comentario">
+            <div class="testimonial-2 rounded comentario-sub">
               <blockquote class="mb-4">
-                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, deserunt eveniet veniam. Ipsam, nam, voluptatum"</p>
+                <div class="spinner-border text-danger" role="status"></div>
+                <p></p>
               </blockquote>
               <div class="d-flex v-card align-items-center">
-                <img src="images/person_3.jpg" alt="Image" class="img-fluid mr-3">
-                <span>Katie Rose</span>
+                <img src="images/usuario.png" alt="Image" class="img-fluid mr-3">
+                <span></span>
               </div>
             </div>
           </div>

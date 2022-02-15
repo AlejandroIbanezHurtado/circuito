@@ -28,7 +28,7 @@ class CocheRepository extends ServiceEntityRepository
 
     }
     // SELECT * FROM comentarios ORDER BY rand() LIMIT 1;
-    public function findAleatorios()
+    public function findMejoresValoraciones()
     {
         $criteria = array_rand(array(
             't.id' => 'loquesea',

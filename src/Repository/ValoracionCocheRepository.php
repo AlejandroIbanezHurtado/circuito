@@ -19,6 +19,28 @@ class ValoracionCocheRepository extends ServiceEntityRepository
         parent::__construct($registry, ValoracionCoche::class);
     }
 
+    public function findMejoresValoraciones()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "select ROUND(AVG(valoracion_coche.valoracion)) as 'media', coche.precio, modelo.nombre as 'modelo', marca.nombre as 'marca',modelo.imagen from valoracion_coche inner join detalle_reserva on valoracion_coche.detalle_reserva_id = detalle_reserva.id inner join coche on detalle_reserva.coche_id = coche.id inner join modelo on modelo.id = coche.modelo_id inner join marca on modelo.marca_id = marca.id group by modelo.nombre order by SUM(valoracion_coche.valoracion) desc";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
+    public function valoracionesAleatorias()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "select usuario.imagen, usuario.nombre, usuario.apellidos, valoracion_coche.valoracion, valoracion_coche.comentario from valoracion_coche inner join detalle_reserva on valoracion_coche.detalle_reserva_id = detalle_reserva.id inner join reserva on reserva.id = detalle_reserva.reserva_id inner join usuario on usuario.id = reserva.usuario_id where valoracion_coche.comentario is not null order by rand() limit 3";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
     // /**
     //  * @return ValoracionCoche[] Returns an array of ValoracionCoche objects
     //  */
