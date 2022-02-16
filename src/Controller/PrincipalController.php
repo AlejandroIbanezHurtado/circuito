@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class PruebaController extends AbstractController
+class PrincipalController extends AbstractController
 {
     /**
      * @Route("/conocenos", name="conocenos")
@@ -70,6 +70,16 @@ class PruebaController extends AbstractController
     public function perfil(): Response
     {
         return $this->render('perfil.html.twig', [
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/misreservas", name="misreservas")
+     */
+    public function misreservas(): Response
+    {
+        return $this->render('mis_reservas.html.twig', [
         ]);
     }
 }

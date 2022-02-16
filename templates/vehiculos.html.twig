@@ -3,6 +3,9 @@
   <h1>Vehículos</h1>
   <p>Nuestros superdeportivos te esperan</p>
 {% endblock %}
+{% block lib %}
+  <script src="{{ asset('js/lib/lib-vehiculos.js') }}"></script>
+{% endblock %}
 {% block body %}
     <video autoplay muted loop width="100%">
       <source src="videos/videoLambo.mp4" type="video/ogg">
@@ -19,7 +22,9 @@
                     <h3 class="m-0">Escoge la hora y el día</h3>
                   </div>
                   <div class="col-md-6 text-md-right">
-                    <span class="text-danger">32</span>{#Campo calculado de coches totales#}
+                    <span class="text-danger" id="n_coches">
+                      <div class="spinner-border text-danger" role="status"></div>
+                    </span>{#Campo calculado de coches totales#}
                     <span>coches disponibles</span></span>
                   </div>
                 </div>
@@ -68,16 +73,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-lg-9">
-                    <input type="submit" value="Buscar" class="btn btn-danger" id="btnBuscar">
+                  <div class="form-group rounded col-lg-9 offset-lg-3">
+                    <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
                   </div>
-                  <div class="input-group rounded col-lg-3">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-addon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                      </svg>
-                    </span>
+                  <div class="col-lg-12">
+                    <input type="submit" value="Buscar" class="btn btn-danger" id="btnBuscar">
                   </div>
                 </div>
               </form>
@@ -89,7 +89,7 @@
   {#Filtros: precio, marca, dia, hora#}
     <div class="site-section bg-light">
       <div class="container">
-        <div class="row">
+        <div class="row" id="tablon">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="item-1">
                 <a href="#"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>

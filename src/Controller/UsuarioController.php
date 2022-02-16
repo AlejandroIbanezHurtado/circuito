@@ -68,9 +68,7 @@ class UsuarioController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
         }
-
-        return $this->render('api/index.html.twig', [
-            "respuesta" => $errores
-        ]);
+        
+        return new Response(json_encode($errores));
     }
 }

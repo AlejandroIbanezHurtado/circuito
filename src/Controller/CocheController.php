@@ -37,4 +37,26 @@ class CocheController extends AbstractController
         $obj->comentarios = $comentarios;
         return new Response(json_encode($obj));
     }
+
+    /**
+     * @Route("api/obtenVehiculos", name="obtenVehiculos")
+     */
+    public function obtenVehiculos(ManagerRegistry $doctrine): Response
+    {
+        $obj = new stdClass();
+        $repositoryCoche = $doctrine->getRepository(Coche::class);
+        $repositoryMarca = $doctrine->getRepository(Marca::class);
+        $marcas = $repositoryMarca->findAll();
+        $n_coches = $repositoryCoche->countCoche();
+
+        $data = [];
+        foreach ($marcas as &$valor) {
+            $data[] = $valor->getNombre();
+        }
+
+        $obj->marcas = $data;
+        $obj->n_coches = $n_coches;
+        $obj->coches = $repositoryCoche->findAll();
+        return new Response(json_encode($obj));
+    }
 }

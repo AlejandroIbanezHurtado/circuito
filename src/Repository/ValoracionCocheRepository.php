@@ -23,7 +23,7 @@ class ValoracionCocheRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "select ROUND(AVG(valoracion_coche.valoracion)) as 'media', coche.precio, modelo.nombre as 'modelo', marca.nombre as 'marca',modelo.imagen from valoracion_coche inner join detalle_reserva on valoracion_coche.detalle_reserva_id = detalle_reserva.id inner join coche on detalle_reserva.coche_id = coche.id inner join modelo on modelo.id = coche.modelo_id inner join marca on modelo.marca_id = marca.id group by modelo.nombre order by SUM(valoracion_coche.valoracion) desc";
+        $sql = "select ROUND(AVG(valoracion_coche.valoracion)) as 'media', coche.precio, modelo.nombre as 'modelo', marca.nombre as 'marca',modelo.imagen from valoracion_coche inner join detalle_reserva on valoracion_coche.detalle_reserva_id = detalle_reserva.id inner join coche on detalle_reserva.coche_id = coche.id inner join modelo on modelo.id = coche.modelo_id inner join marca on modelo.marca_id = marca.id group by modelo.nombre order by SUM(valoracion_coche.valoracion) desc limit 5";
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
 
