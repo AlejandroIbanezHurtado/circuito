@@ -21,11 +21,21 @@ $(function(){
                 $("div").remove("#cargando");
             },
             success: function(response) {
-                $("div").remove(".cambios");
-                mensaje = $("<div>").addClass("alert alert-success mt-3").attr("role","alert").text("Los cambios se han guardado correctamente").addClass("cambios");
-                $("#final").after(mensaje);
-
-                //recojer en response los errores y listarlos en rojo
+                response = JSON.parse(response);
+                if(response.length>0)
+                {
+                    $("div").remove(".cambios");
+                    for(i=0;i<response.length;i++)
+                    {
+                        mensaje = $("<div>").addClass("alert alert-danger mt-3").attr("role","alert").text(response[i]).addClass("cambios");
+                        $("#final").after(mensaje);
+                    }
+                }
+                else{
+                    $("div").remove(".cambios");
+                    mensaje = $("<div>").addClass("alert alert-success mt-3").attr("role","alert").text("Los cambios se han guardado correctamente").addClass("cambios");
+                    $("#final").after(mensaje);
+                }
             },
             error: function(){
                 $("div").remove(".cambios");

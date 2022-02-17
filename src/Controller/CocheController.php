@@ -61,7 +61,7 @@ class CocheController extends AbstractController
     }
 
     /**
-     * @Route("api/obtenVehiculosPaginados", name="obtenVehiculosPaginados")
+     * @Route("api/obtenVehiculosPaginados/{pagina}/{filas}", name="obtenVehiculosPaginados")
      */
     public function obtenVehiculosPaginados(ManagerRegistry $doctrine, int $pagina=1, int $filas=2): Response
     {

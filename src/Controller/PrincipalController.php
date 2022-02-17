@@ -69,7 +69,7 @@ class PrincipalController extends AbstractController
      */
     public function perfil(): Response
     {
-        return $this->render('perfil.html.twig', [
+        return $this->render('editar-perfil.html.twig', [
         ]);
     }
 
