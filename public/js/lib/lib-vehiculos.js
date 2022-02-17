@@ -52,11 +52,6 @@ $(function(){
         
     })
 
-    modal = $("<div id='ex1' class='modal'><p>Thanks for clicking. That felt good.</p><a href='#' rel='modal:close'>Close</a></div>");
-    $("body").append(modal);
-
-
-
     function obtenPaginados(pagina, filas=6){
         rellenar(pagina,filas);
     }
@@ -68,7 +63,7 @@ $(function(){
                 cont = $("<div class='col-lg-4 col-md-6 mb-4' div='cajaVehiculos'></div>");
                 item = $("<div class='item-1'></div>");
                 ruta = "\"bd/"+result.coches[i].imagen+"\"";
-                img = $("<a href='#ex1' rel='modal:open'><div style='background-image: url("+ruta+"); width: 100%; background-size: 100%; background-repeat: no-repeat; background-position: center; height:170px'></div></a>");
+                img = $("<a href="+ruta+"><div style='background-image: url("+ruta+"); width: 100%; background-size: 100%; background-repeat: no-repeat; background-position: center; height:170px'></div></a>");
                 itemCont = $("<div class='item-1-contents' style='height: 350px;''></div>");
                 divCenter = $("<div class='text-center'></div>");//append titulo y precio
                 titulo = $("<h2><a class='text-danger' href='reservar/coche/"+result.coches[i].id+"'>"+result.coches[i].marca+" "+result.coches[i].modelo+"</a></h2>");

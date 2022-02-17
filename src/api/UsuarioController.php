@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\api;
 
 use App\Entity\Usuario;
 use Doctrine\Persistence\ManagerRegistry;
@@ -23,7 +23,7 @@ class UsuarioController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getName();
+                return $object->getNombre();
             },
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);

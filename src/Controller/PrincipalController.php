@@ -82,4 +82,14 @@ class PrincipalController extends AbstractController
         return $this->render('mis_reservas.html.twig', [
         ]);
     }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/reservar/{id}", name="reservar")
+     */
+    public function reservar(): Response
+    {
+        return $this->render('reservar.html.twig', [
+        ]);
+    }
 }
