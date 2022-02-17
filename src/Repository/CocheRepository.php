@@ -48,6 +48,44 @@ class CocheRepository extends ServiceEntityRepository
 
     }
 
+    public function obtenCochesPaginados(int $pagina, int $filas)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select coche.id, coche.potencia, coche.precio, coche.cilindrada, coche.velocidad, modelo.nombre as 'modelo', modelo.imagen, marca.nombre 'marca' from coche inner join modelo on modelo.id = coche.modelo_id inner JOIN marca on marca.id = modelo.marca_id";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        $n_total = count($registros);
+
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $sql = "select coche.id, coche.potencia, coche.precio, coche.cilindrada, coche.velocidad, modelo.nombre as 'modelo', modelo.imagen, marca.nombre 'marca' from coche inner join modelo on modelo.id = coche.modelo_id inner JOIN marca on marca.id = modelo.marca_id limit $inicio, $filas";
+            $stmt = $conn->prepare($sql);
+            $resultSet = $stmt->executeQuery();
+            $registros = $resultSet->fetchAll(); 
+        }
+        return $registros;
+    }
+
+    public function obtenTotalCoches()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select coche.id, coche.potencia, coche.precio, coche.cilindrada, coche.velocidad, modelo.nombre as 'modelo', modelo.imagen, marca.nombre 'marca' from coche inner join modelo on modelo.id = coche.modelo_id inner JOIN marca on marca.id = modelo.marca_id";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        return $registros;
+    }
+
+
     // /**
     //  * @return Coche[] Returns an array of Coche objects
     //  */

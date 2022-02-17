@@ -23,7 +23,10 @@ class CocheCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('modelo'),
-            NumberField::new('precio')
+            NumberField::new('precio'),
+            NumberField::new('potencia'),
+            NumberField::new('cilindrada'),
+            NumberField::new('velocidad')
         ];
     }
     

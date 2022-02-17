@@ -36,6 +36,21 @@ class Coche implements JsonSerializable
      */
     private $detalleReservas;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $potencia;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cilindrada;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $velocidad;
+
     public function __construct()
     {
         $this->detalleReservas = new ArrayCollection();
@@ -107,5 +122,41 @@ class Coche implements JsonSerializable
 
     public function jsonSerialize() {
         return get_object_vars($this);
+    }
+
+    public function getPotencia(): ?int
+    {
+        return $this->potencia;
+    }
+
+    public function setPotencia(?int $potencia): self
+    {
+        $this->potencia = $potencia;
+
+        return $this;
+    }
+
+    public function getCilindrada(): ?int
+    {
+        return $this->cilindrada;
+    }
+
+    public function setCilindrada(?int $cilindrada): self
+    {
+        $this->cilindrada = $cilindrada;
+
+        return $this;
+    }
+
+    public function getVelocidad(): ?int
+    {
+        return $this->velocidad;
+    }
+
+    public function setVelocidad(?int $velocidad): self
+    {
+        $this->velocidad = $velocidad;
+
+        return $this;
     }
 }
