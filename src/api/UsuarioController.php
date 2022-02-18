@@ -3,6 +3,7 @@
 namespace App\api;
 
 use App\Entity\Usuario;
+use App\Entity\Coche;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,17 +24,18 @@ class UsuarioController extends AbstractController
         $encoder = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-                return $object->getNombre();
+                if($object instanceof Usuario && $object instanceof Modelo)
+                {
+                    return $object->getNombre();
+                }
+                
             },
         ];
         $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
         
         $serializer = new Serializer([$normalizer], [$encoder]);
         $todos = $doctrine->getRepository(Usuario::class)->findAll();
-        var_dump($serializer->serialize($todos, 'json'));
-        return $this->render('usuario/index.html.twig', [
-            'controller_name' => 'UsuarioController',
-        ]);
+        return new Response($serializer->serialize($todos,"json"));
     }
 
     /**
@@ -72,10 +74,6 @@ class UsuarioController extends AbstractController
         foreach ($errores as &$valor) {
             $array[] = $valor->getMessage();
         }
-        // dd(json_encode($array));
         return new Response(json_encode($array));
-        // return $this->render('api/index.html.twig', [
-        //     'respuesta' => $errores
-        // ]);
     }
 }

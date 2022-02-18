@@ -2,10 +2,17 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Modelo;
+use App\Entity\Usuario;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PrincipalController extends AbstractController
 {
@@ -85,10 +92,11 @@ class PrincipalController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/reservar/{id}", name="reservar")
+     * @Route("/reservar/coche/{id}", name="reservar")
      */
     public function reservar(): Response
     {
+        
         return $this->render('reservar.html.twig', [
         ]);
     }
