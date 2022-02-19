@@ -8,6 +8,9 @@ $(function(){
         }
         });
     $( ".calendario" ).datepicker( "option", "showAnim", "drop");
+    $( ".calendario" ).datepicker({
+        format:'mm/dd/yyyy',
+    }).datepicker("setDate",'now');
 
     $(".redes").on("click",function(){
         window.open($(this).attr("href"),'_blank');

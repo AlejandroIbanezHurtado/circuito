@@ -9,63 +9,88 @@
               <form class="trip-form">
                 <div class="row">
                   <div class="form-group col-md-3">
-                    <label for="cf-1">Día</label>
-                    <input type="text" id="cf-1" class="form-select form-control calendario" readonly>
+                    <label for="dia">Día</label>
+                    <input type="text" id="dia" class="form-select form-control" value = "{{ dia }}" readonly>
                   </div>
                   <div class="form-group col-md-3">
-                    <label for="cf-2">Hora</label>
-                    <select id="cf-2" class="form-select form-control" aria-label="Default select example">
-                      <option selected value="0">-Selecciona hora-</option>
-                      <option value="09:00">09:00</option>
-                      <option value="09:30">09:30</option>
-                      <option value="10:00">10:00</option>
-                      <option value="10:30">10:30</option>
-                      <option value="11:00">11:00</option>
-                      <option value="11:30">11:30</option>
-                      <option value="12:00">12:00</option>
-                      <option value="12:30">12:30</option>
-                      <option value="13:00">13:00</option>
-                      <option value="13:30">13:30</option>
-                      <option value="14:00">14:00</option>
-                      <option value="17:00">17:00</option>
-                      <option value="17:30">17:30</option>
-                      <option value="18:00">18:00</option>
-                      <option value="18:30">18:30</option>
-                      <option value="19:00">19:00</option>
-                      <option value="19:30">19:30</option>
-                      <option value="20:00">20:00</option>
-                    </select>
+                    <label for="horaInicio">Hora inicio</label>
+                    <input type="text" id="horaInicio" class="form-select form-control" value = "{{ horaInicio }}" readonly>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="horaFin">Hora fin</label>
+                    <input type="text" id="horaFin" class="form-select form-control" value = "{{ horaFin }}" readonly>
                   </div>
                 </div>
                 <div class="row align-items-center mb-4">
                   <div class="col-md-6">
                     {# <h3 class="m-0">{{coche.nombre}}</h3> #}
-                    <h1 class="m-0">Nombre marca y modelo</h1>
+                    <h1 class="m-0">{{coche.marca}} {{coche.modelo}}</h1>
                   </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-6">
                         {# <img src="/bd/488.jpg"></img> #}
-                        <div style='background-image: url(/bd/488.jpg); width: 100%; background-size: 70%; background-repeat: no-repeat; background-position: center; height:210px'></div>
+                        <div style='background-image: url(/bd/{{coche.imagen}}); width: 100%; background-size: 70%; background-repeat: no-repeat; background-position: center; height:210px'></div>
                     </div>
                     <div class="col-lg-6">
-                    <p>Potencia:</p>
-                    <p>Cilindrada:</p>
-                    <p>Velocidad máxima:</p>
+                    <p>Potencia: {{coche.potencia}} CV</p>
+                    <p>Cilindrada: {{coche.cilindrada}} cm3</p>
+                    <p>Velocidad máxima: {{coche.velocidad}} km/h</p>
                     </div>
                 </div>
-
                 <div class="row mt-5">
                   <div class="col-12">
-                    <input type="submit" value="Buscar" class="btn btn-danger float-right" id="btnBuscar">
+                    <input type="button" value="Pagar" data-bs-toggle='modal' data-bs-target='#exampleModal' class="btn btn-danger float-right" id="btnPagar">
                     <select id="cf-2" class="form-select form-control float-left col-3" aria-label="Default select example">
                       <option selected value="0">-Añade otro coche-</option>
                     </select>
                   </div>
                 </div>
               </form>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Pagar reserva</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Titular de la tarjeta</p> <input class="form-control mb-3" type="text" placeholder="Titular">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Nº tarjeta</p> <input class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Fecha de expiración</p> <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="btn btn-success mb-3" id="btnPagarFinal"> <span class="ps-3">Pagar $243</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             {# </div>
         </div>
       </div> #}
+{% endblock %}
+{% block lib %}
+  <script src="{{ asset('js/lib/lib-reserva.js') }}"></script>
 {% endblock %}

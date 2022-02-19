@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/css.css') }}">
-    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css') }}" />
+    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css') }}" /> #}
     
 
   </head>
@@ -64,17 +64,17 @@
               {# class="active" #}
               <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                  <li><a href="index" class="nav-link">Inicio</a></li>
-                  <li><a href="servicios" class="nav-link">Servicios</a></li>
-                  <li><a href="vehiculos" class="nav-link">Vehículos</a></li>
-                  <li><a href="conocenos" class="nav-link">Conócenos</a></li>
+                  <li><a href="/index" class="nav-link">Inicio</a></li>
+                  <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                  <li><a href="/vehiculos" class="nav-link">Vehículos</a></li>
+                  <li><a href="/conocenos" class="nav-link">Conócenos</a></li>
                   {% if app.user.email is defined %}
                   <li>
                     <div class="dropdown show">
                         <a class="btn dropdown-toggle">
                         {% if app.user.imagen != null %}
                         <img src="{{ asset(app.user.imagen) }}" width="50px"></img>
-                        {% else %}"{{ asset('images/usuario.png') }}
+                        {% else %}"{{ asset('/images/usuario.png') }}
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
                           <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                           <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -82,9 +82,9 @@
                         {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                          <button class="dropdown-item" type="button"><a href="misreservas" class="text-dark">Mis reservas</a></button>
-                          <button class="dropdown-item" type="button"><a href="perfil" class="text-dark">Editar perfil</a></button>
-                          <button class="dropdown-item" type="button"><a href="logout" class="text-danger">Cerrar sesión</a></button>
+                          <button class="dropdown-item" type="button"><a href="/misreservas" class="text-dark">Mis reservas</a></button>
+                          <button class="dropdown-item" type="button"><a href="/perfil" class="text-dark">Editar perfil</a></button>
+                          <button class="dropdown-item" type="button"><a href="/logout" class="text-danger">Cerrar sesión</a></button>
                         </div>
                       </div>
                   </li>

@@ -85,6 +85,18 @@ class CocheRepository extends ServiceEntityRepository
         return $registros;
     }
 
+    public function buscarPorId(int $id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select coche.*, modelo.imagen, modelo.nombre as 'modelo', marca.nombre as 'marca' from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id = ${id}";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        return $registros;
+    }
+
 
     // /**
     //  * @return Coche[] Returns an array of Coche objects

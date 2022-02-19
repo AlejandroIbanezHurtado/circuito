@@ -30,19 +30,41 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-md-3">
-                    <label for="cf-1">Día</label>
-                    <input type="text" id="cf-1" class="form-select form-control calendario" readonly>
+                    <label for="dia">Día</label>
+                    <input type="text" id="dia" class="form-select form-control calendario" readonly>
                   </div>
                   <div class="form-group col-md-3">
-                    <label for="cf-2">Hora</label>
-                    <select id="cf-2" class="form-select form-control" aria-label="Default select example">
-                      <option selected value="0">-Selecciona hora-</option>
+                    <label for="cf-2">Hora comienzo</label>
+                    <select id="cf-2" class="form-select form-control" aria-label="Default select example" id="horaComienzo">
+                      <option value="09:00">09:00</option>
+                      <option value="09:30">09:30</option>
+                      <option value="10:00">10:00</option>
+                      <option value="10:30">10:30</option>
+                      <option value="11:00" selected>11:00</option>
+                      <option value="11:30">11:30</option>
+                      <option value="12:00">12:00</option>
+                      <option value="12:30">12:30</option>
+                      <option value="13:00">13:00</option>
+                      <option value="13:30">13:30</option>
+                      <option value="14:00">14:00</option>
+                      <option value="17:00">17:00</option>
+                      <option value="17:30">17:30</option>
+                      <option value="18:00">18:00</option>
+                      <option value="18:30">18:30</option>
+                      <option value="19:00">19:00</option>
+                      <option value="19:30">19:30</option>
+                      <option value="20:00">20:00</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="cf-5">Hora fin</label>
+                    <select id="cf-5" class="form-select form-control" aria-label="Default select example" id="horaFin">
                       <option value="09:00">09:00</option>
                       <option value="09:30">09:30</option>
                       <option value="10:00">10:00</option>
                       <option value="10:30">10:30</option>
                       <option value="11:00">11:00</option>
-                      <option value="11:30">11:30</option>
+                      <option value="11:30" selected>11:30</option>
                       <option value="12:00">12:00</option>
                       <option value="12:30">12:30</option>
                       <option value="13:00">13:00</option>
@@ -71,11 +93,12 @@
                       <option value="des">Precio descendente</option>
                     </select>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="form-group rounded col-lg-9 offset-lg-3">
+                  <div class="form-group rounded col-lg-6">
+                    <label for="cf-4">Buscar</label>
                     <input type="search" class="form-control rounded" placeholder="Buscar" aria-label="Search" aria-describedby="search-addon" />
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-lg-12">
                     <input type="submit" value="Buscar" class="btn btn-danger" id="btnBuscar">
                   </div>
@@ -85,6 +108,25 @@
         </div>
       </div>
     </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="" id="imagenModal" style="max-width: -webkit-fill-available;"></img>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   {#Filtros: precio, marca, dia, hora#}
     <div class="site-section bg-light">
