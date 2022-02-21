@@ -19,6 +19,18 @@ class ReservaRepository extends ServiceEntityRepository
         parent::__construct($registry, Reserva::class);
     }
 
+    public function buscarPorCorreo(string $correo)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select reserva.fecha, reserva.precio, reserva.fecha_inicio, reserva.fecha_fin, marca.nombre as 'marca', modelo.nombre as 'modelo' from reserva inner join usuario on usuario.id = reserva.usuario_id inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id inner join coche on coche.id = detalle_reserva.coche_id inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where usuario.email = '${correo}'";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        return $registros;
+    }
+
     // /**
     //  * @return Reserva[] Returns an array of Reserva objects
     //  */

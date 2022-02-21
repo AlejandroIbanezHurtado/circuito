@@ -1,4 +1,10 @@
 {% extends 'base.html.twig' %}
+{% block lib %}
+  <script src="{{ asset('js/lib/lib-misReservas.js') }}"></script>
+{% endblock %}
 {% block titulo %}
   <h1 id="titulo">Mis reservas</h1>
+{% endblock %}
+{% block body %}
+  <div id="contPrinci"></div>
 {% endblock %}

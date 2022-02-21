@@ -24,12 +24,12 @@ class VehiculosController extends AbstractController
         $marcas = $repositoryMarca->findAll();
         $n_coches = $repositoryCoche->countCoche();
 
-        $data = [];
-        foreach ($marcas as &$valor) {
-            $data[] = $valor->getNombre();
-        }
+        // $data = [];
+        // foreach ($marcas as &$valor) {
+        //     $data[] = $valor->getNombre();
+        // }
 
-        $obj->marcas = $data;
+        $obj->marcas = $marcas;
         $obj->n_coches = $n_coches;
         $obj->coches = $repositoryCoche->obtenCochesPaginados($pagina,$filas);
         return new Response(json_encode($obj));

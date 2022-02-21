@@ -14,7 +14,7 @@ $(function(){
         n_coches.text(result.n_coches);
         for(i=0;i<result.marcas.length;i++)
         {
-            op = $("<option>").text(result.marcas[i]).val(result.marcas[i]);
+            op = $("<option>").text(result.marcas[i].nombre).val(result.marcas[i].nombre).attr("id","marca_"+result.marcas[i].id);
             marcas.append(op);
         }
 
@@ -63,11 +63,48 @@ $(function(){
         ano = vectorFecha[2];
     
         horaInicio = $("#cf-2").val();
-        horaFin = $("#cf-5").val();
-    
-        fechaInicio = ano+"-"+mes+"-"+dia+" "+horaInicio+":00";
-        fechaFin = ano+"-"+mes+"-"+dia+" "+horaFin+":00";
-        $.getJSON("/api/obtenVehiculosPaginadosNoFechas/"+fechaInicio+"/"+fechaFin+"/"+pagina+"/"+filas,function(result){
+        horaFin = $("#cf-5").val().split(":")[0];
+        minutoFin = $("#cf-2").val().split(":")[1];
+        if(minutoFin=="00")
+        {
+            minutoFin = "59";
+            horaFin = parseInt(horaFin)-1;
+        }
+        else{
+            minutoFin = parseInt(minutoFin)-1;
+        }
+
+    fechaInicio = ano+"-"+mes+"-"+dia+" "+horaInicio+":01";
+    fechaFin = ano+"-"+mes+"-"+dia+" "+horaFin+":"+minutoFin+":59";
+        if(marcas.val()==0)
+        {
+            marca=false;
+        }
+        else{
+            marca = marcas.find("option[value="+marcas.val()+"]").attr("id").split("_")[1];
+        }
+        if($("#buscador").val()=="")
+        {
+            buscar = false;
+        }
+        else{
+            buscar = $("#buscador").val();
+        }
+
+        if($("#cf-4").val()==0)
+        {
+            ordenar = false;
+        }
+        else{
+            if($("#cf-4").val()=="asc")
+            {
+                ordenar = "asc";
+            }
+            else{
+                ordenar = "desc";
+            }
+        }
+        $.getJSON("/api/obtenVehiculosPaginadosNoFechas/"+fechaInicio+"/"+fechaFin+"/"+pagina+"/"+filas+"/"+marca+"/"+buscar+"/"+ordenar,function(result){
             console.log(result);
             tablon.children().remove();
             for(i=0;i<result.coches.length;i++)

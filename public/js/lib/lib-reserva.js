@@ -24,10 +24,19 @@ $(function(){
     ano = vectorFecha[2];
 
     horaInicio = $("#horaInicio").val();
-    horaFin = $("#horaFin").val();
+    horaFin = $("#horaFin").val().split(":")[0];
+    minutoFin = $("#horaFin").val().split(":")[1];
+    if(minutoFin=="00")
+    {
+        minutoFin = "59";
+        horaFin = parseInt(horaFin)-1;
+    }
+    else{
+        minutoFin = parseInt(minutoFin)-1;
+    }
 
-    fechaInicio = ano+"-"+mes+"-"+dia+" "+horaInicio+":00";
-    fechaFin = ano+"-"+mes+"-"+dia+" "+horaFin+":00";
+    fechaInicio = ano+"-"+mes+"-"+dia+" "+horaInicio+":01";
+    fechaFin = ano+"-"+mes+"-"+dia+" "+horaFin+":"+minutoFin+":59";
 
 
     ids = [];

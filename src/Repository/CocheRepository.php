@@ -100,8 +100,6 @@ class CocheRepository extends ServiceEntityRepository
     public function buscarCochesNoFechas($fecha_inicio, $fecha_fin, $ids)
     {
         $conn = $this->getEntityManager()->getConnection();
-        // dd($fecha_inicio);
-        // dd($fecha_fin);
         $coches_ids="";
         $ids = json_decode($ids);
         foreach ($ids as &$valor) {
@@ -118,12 +116,17 @@ class CocheRepository extends ServiceEntityRepository
     }
 
 
-    public function obtenCochesPaginadosNoFechas($fecha_inicio,$fecha_fin, int $pagina, int $filas)
+    public function obtenCochesPaginadosNoFechas($fecha_inicio,$fecha_fin, int $pagina, int $filas,$marca=false,$buscar=false,$orden=false)
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $registros = array();
         $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.*, modelo.imagen from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}'))";
+        if($marca!="false") $sql = $sql." and marca.id = '${marca}'";
+        if($buscar!="false") $sql = $sql." and modelo.nombre like '${buscar}%'";
+        if($orden!="false") $sql = $sql." order by '${orden}'";
+
+        
         // dd($sql);
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
@@ -136,7 +139,8 @@ class CocheRepository extends ServiceEntityRepository
         if ($pagina <= $paginas)
         {
             $inicio = ($pagina-1) * $filas;
-            $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.*, modelo.imagen from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}')) limit $inicio, $filas";
+            $sql = $sql."limit $inicio, $filas";
+            // dd($sql);
             $stmt = $conn->prepare($sql);
             $resultSet = $stmt->executeQuery();
             $registros = $resultSet->fetchAll(); 
