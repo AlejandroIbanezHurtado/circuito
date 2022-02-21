@@ -21,8 +21,8 @@ class ReservaController extends AbstractController
 
         $coche = $repositoryCoche->buscarPorId($id);
         $dia = date("d/m/Y",($_GET['inicio'])/1000);
-        $horaInicio = date("H:i",($_GET['inicio'])/1000);
-        $horaFin = date("H:i",($_GET['fin'])/1000);
+        $horaInicio = date("H:i",($_GET['inicio']+3600000)/1000);
+        $horaFin = date("H:i",($_GET['fin']+3600000)/1000);
         return $this->render('reservar.html.twig', [
             'dia' => $dia,
             'horaInicio' => $horaInicio,

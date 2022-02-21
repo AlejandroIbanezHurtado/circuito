@@ -97,6 +97,53 @@ class CocheRepository extends ServiceEntityRepository
         return $registros;
     }
 
+    public function buscarCochesNoFechas($fecha_inicio, $fecha_fin, $ids)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        // dd($fecha_inicio);
+        // dd($fecha_fin);
+        $coches_ids="";
+        $ids = json_decode($ids);
+        foreach ($ids as &$valor) {
+            $coches_ids = $coches_ids.$valor.",";
+        }
+        $coches_ids = substr($coches_ids,0,-1);
+        $registros = array();
+        $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.* from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}')) and coche.id not in (${coches_ids})";
+        // dd($sql);
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        return $registros;
+    }
+
+
+    public function obtenCochesPaginadosNoFechas($fecha_inicio,$fecha_fin, int $pagina, int $filas)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.*, modelo.imagen from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}'))";
+        // dd($sql);
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+        $n_total = count($registros);
+
+        $total = count($registros);
+        $paginas = ceil($total /$filas);
+        $registros = array();
+        if ($pagina <= $paginas)
+        {
+            $inicio = ($pagina-1) * $filas;
+            $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.*, modelo.imagen from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}')) limit $inicio, $filas";
+            $stmt = $conn->prepare($sql);
+            $resultSet = $stmt->executeQuery();
+            $registros = $resultSet->fetchAll(); 
+        }
+        return $registros;
+    }
+
 
     // /**
     //  * @return Coche[] Returns an array of Coche objects

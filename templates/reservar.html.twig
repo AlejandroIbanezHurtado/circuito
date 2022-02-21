@@ -21,6 +21,8 @@
                     <input type="text" id="horaFin" class="form-select form-control" value = "{{ horaFin }}" readonly>
                   </div>
                 </div>
+              </form>
+              <div id="coche_{{coche.id}}" class="contenedorCoches">
                 <div class="row align-items-center mb-4">
                   <div class="col-md-6">
                     {# <h3 class="m-0">{{coche.nombre}}</h3> #}
@@ -39,7 +41,8 @@
                     <p>Velocidad máxima: {{coche.velocidad}} km/h</p>
                     </div>
                 </div>
-                <div class="row mt-5">
+              </div>
+                <div class="row m-5">
                   <div class="col-12">
                     <input type="button" value="Pagar" data-bs-toggle='modal' data-bs-target='#exampleModal' class="btn btn-danger float-right" id="btnPagar">
                     <select id="cf-2" class="form-select form-control float-left col-3" aria-label="Default select example">
@@ -47,7 +50,7 @@
                     </select>
                   </div>
                 </div>
-              </form>
+              
 
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -70,12 +73,12 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">Fecha de expiración</p> <input class="form-control mb-3" type="text" placeholder="MM/YYYY">
+                                        <p class="text mb-1">Fecha de expiración</p> <input class="form-control mb-3" type="text" placeholder="MM/YYYY" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" placeholder="***">
+                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" maxlength="3" placeholder="***"  autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-12">

@@ -25,5 +25,29 @@ class CocheController extends AbstractController
         $obj->total_coches = count($repositoryCoche->obtenTotalCoches());
         return new Response(json_encode($obj));
     }
-    // $obj->coches = $repositoryCoche->obtenCochesPaginados(2,2);
+
+    /**
+     * @Route("api/obtenVehiculosNoFechas/{fecha_inicio}/{fecha_fin}/{ids}", name="obtenVehiculosNoFechas")
+     */
+    public function obtenVehiculosNoFechas(ManagerRegistry $doctrine, $fecha_inicio, $fecha_fin, $ids): Response
+    {
+        $obj = new stdClass();
+        $repositoryCoche = $doctrine->getRepository(Coche::class);
+
+        $obj->coches = $repositoryCoche->buscarCochesNoFechas($fecha_inicio,$fecha_fin,$ids);
+        return new Response(json_encode($obj));
+    }
+
+    /**
+     * @Route("api/obtenVehiculosPaginadosNoFechas/{fechaInicio}/{fechaFin}/{pagina}/{filas}", name="obtenVehiculosPaginadosNoFechas")
+     */
+    public function obtenVehiculosPaginadosNoFechas(ManagerRegistry $doctrine, int $pagina=1, int $filas=2,$fechaInicio,$fechaFin): Response
+    {
+        $obj = new stdClass();
+        $repositoryCoche = $doctrine->getRepository(Coche::class);
+
+        $obj->coches = $repositoryCoche->obtenCochesPaginadosNoFechas($fechaInicio,$fechaFin,$pagina,$filas);
+        return new Response(json_encode($obj));
+    }
+
 }

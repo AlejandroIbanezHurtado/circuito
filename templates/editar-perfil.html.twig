@@ -115,7 +115,7 @@
             <div class="card mb-4">
                 <div class="card-header">Datos de tu cuenta</div>
                 <div class="card-body">
-                    <form id="formulario">
+                    <form id="formulario" class="needs-validation" novalidate>
                         <!-- Form Group (email)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputEmailAddress">Correo</label>
@@ -126,12 +126,14 @@
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">Nombre</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Introduce tu nombre" value="{{app.user.nombre}}" name="nombre">
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Introduce tu nombre" value="{{app.user.nombre}}" name="nombre" required>
+                                <div class="valid-feedback">Correcto!</div>
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Apellidos</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Introduce tus apellidos" value="{{app.user.apellidos}}" name="apellidos">
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Introduce tus apellidos" value="{{app.user.apellidos}}" name="apellidos" required>
+                                <div class="valid-feedback">Correcto!</div>
                             </div>
                         </div>
                         <!-- Save changes button-->
