@@ -25,4 +25,14 @@ $(function(){
       }, function() {
         $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp()
       });
+
+    $("#mapa").on("click",function(){
+        window.open("/pdf/mapaNav.pdf");
+    })
+    $("#guia").on("click",function(){
+        window.open("/pdf/guiaEstilos.pdf");
+    })
+    $("#plantilla").on("click",function(){
+        window.open("https://themewagon.com/themes/free-responsive-bootstrap-4-html5-car-rental-website-template-carrent/");
+    })
 })
