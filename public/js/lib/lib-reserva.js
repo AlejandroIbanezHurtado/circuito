@@ -1,6 +1,46 @@
 $(function(){
     var botonFinal = $("#btnPagarFinal");
     var botonPagar = $("#btnPagar");
+    var comentar = $("#comentar");
+    $("#commentForm").validate({
+        rules: {
+          ctext: {
+            maxlength: 300
+          }
+        },
+        messages: {
+            ctext: {
+              maxlength: "Máximo 300 caracteres!"
+            }
+          }
+      });
+    id = $(".contenedorCoches").attr("id").split("_")[1];
+    $.getJSON("/api/obtenComentarios/"+id,function(result){
+        for(j=0;j<result.length;j++)
+        {
+            console.log(result);
+            carta = $("<div class='card'></div>");
+            fila = $("<div class='row'></div>");
+            src = "/images/usuario.png";
+            if(result[j].imagen!=null) src="/"+result[j].imagen;
+            img = $("<div class='col-2'> <img src="+src+" width='70' class='rounded-circle mt-2'> </div>");
+            col = $("<div class='col-10'></div>");
+            contCom = $("<div class='comment-box ml-2'></div>");
+            user = $("<h4>"+result[j].nombre+" "+result[j].apellidos+"</h4>");
+            estrellas = $("<div class='rating'></div>");
+            for(i=0;i<parseInt(result[j].valoracion);i++)
+            {
+                estrellas.append($("<i class='bi bi-star text-warning my-4'></i>"));
+            }
+            col.append(contCom.append(user).append(estrellas));
+            com = $("<div class='comment-area'> <textarea readonly class='form-control' rows='4'>"+result[j].comentario+"</textarea> </div>");
+            if(result[j].comentario!=null && result[j].comentario!="") col.append(com);
+            carta.append(fila.append(img).append(col));
+            comentar.after(carta);
+        }
+        
+    })
+    
 
     vectorFecha = $("#dia").val().split("/");
     dia = vectorFecha[0];
@@ -18,7 +58,8 @@ $(function(){
     else{
         minutoFin = parseInt(minutoFin)-1;
     }
-
+    var ini =  ano+"-"+mes+"-"+dia+" "+horaInicio+":00";
+    var fin =  ano+"-"+mes+"-"+dia+" "+horaFin+":00";
     var fechaInicio = ano+"-"+mes+"-"+dia+" "+horaInicio+":01";
     var fechaFin = ano+"-"+mes+"-"+dia+" "+horaFin+":"+minutoFin+":59";
 
@@ -34,7 +75,7 @@ $(function(){
         })
         pTotal = $("#total").attr("value");
         $.ajax({
-            url: "/api/hacerReserva/["+ids+"]/"+pTotal+"/"+fechaInicio+"/"+fechaFin,
+            url: "/api/hacerReserva/["+ids+"]/"+pTotal+"/"+ini+"/"+fin,
             type: 'post',
             contentType: false,
             processData: false,

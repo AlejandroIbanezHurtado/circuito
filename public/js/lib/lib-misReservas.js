@@ -11,14 +11,17 @@ $(function(){
             fila = $("<div class='row'></div>");
             imagen = $("<div class='col-md-6 col-sm-6 col-6'><div style='background-image: url(/bd/"+result[i].imagen+"); width: 100%; background-size: 70%; background-repeat: no-repeat; background-position: center; height:210px'></div></div>");
             datos = $("<div class='col-md-4 col-sm-4 col-4'><p>Se reservó el día: "+result[i].fecha+"</p><p>Fecha de inicio: "+result[i].fecha_inicio+"</p><p>Fecha de fin: "+result[i].fecha_fin+"</p><h4>Precio individual: "+result[i].precio_coche+"€</h4>Precio conjunto: "+result[i].precio+"€</h4></div>");
-            botonCancelar = $("<div class='col-md-2 col-sm-2 col-2'><input type='button' value='Cancelar' data-bs-toggle='modal' data-bs-target='#exampleModal' class='btn btn-danger'></div>");
-            cajaPrinci.append(contenedor.append(tituloPrinci.append(titulo)).append(fila.append(imagen).append(datos).append(botonCancelar)));
+            botonCancelar = $("<div class='col-md-2 col-sm-2 col-2' data-bs-toggle='modal' data-bs-target='#modalHora'><input type='button' value='Cancelar' class='btn btn-danger'></div>");
+            cajaPrinci.append(contenedor.append(tituloPrinci.append(titulo)).append(fila.append(imagen).append(datos)));
+            actual = new Date();
+            console.log(actual);
+            ini = new Date(result[i].fecha_inicio);
+            if(actual<ini) fila.append(botonCancelar);
             botonCancelar.find("input[type='button']").on("click",function(){
                 id_coche = $(this).parent().parent().parent().attr("id").split("_")[1];
-                $("#modalHora").modal("show");
                 $("#btnCancelar").on("click",function(){
                     $.get("/api/borraReserva/"+id_coche,function(data){
-                        contenedor.remove();
+                        $(document).find("div[id=coche_"+id_coche+"]").remove();
                     })
                 })
             })        

@@ -7,6 +7,7 @@ use App\Entity\Coche;
 use App\Entity\Reserva;
 use App\Entity\Usuario;
 use App\Entity\DetalleReserva;
+use App\Entity\ValoracionCoche;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,5 +52,18 @@ class ReservaController extends AbstractController
         }
         
         return new Response("OK");
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("api/obtenComentarios/{id}", name="obtenComentarios")
+     */
+    public function comentarios(ManagerRegistry $doctrine, $id): Response
+    {
+        // $repositoryDetalleReserva = $doctrine->getRepository(DetalleReserva::class);
+        $repositoryValoracion = $doctrine->getRepository(ValoracionCoche::class);
+
+        $comentarios = $repositoryValoracion->valoracionesPorId($id);
+        return new Response(json_encode($comentarios));
     }
 }

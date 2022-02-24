@@ -41,6 +41,17 @@ class ValoracionCocheRepository extends ServiceEntityRepository
         return $resultSet->fetchAllAssociative();
     }
 
+    public function valoracionesPorId($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = "select valoracion_coche.*, usuario.nombre, usuario.apellidos, usuario.imagen from valoracion_coche inner join detalle_reserva on detalle_reserva.id = valoracion_coche.detalle_reserva_id inner join reserva on reserva.id = detalle_reserva.reserva_id inner join usuario on usuario.id = reserva.usuario_id where detalle_reserva.coche_id = ${id}";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+
+        return $resultSet->fetchAllAssociative();
+    }
+
     // /**
     //  * @return ValoracionCoche[] Returns an array of ValoracionCoche objects
     //  */

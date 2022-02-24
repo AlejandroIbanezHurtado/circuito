@@ -3,9 +3,89 @@
   <h1 id="titulo">Reservar</h1>
 {% endblock %}
 {% block body %}
-    {# <div class="container">
-        <div class="row">
-          <div class="col-12"> #}
+<style>
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 20px;
+    width: 100%;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+}
+
+.comment-box {
+    padding: 5px
+}
+
+.comment-area textarea {
+    resize: none;
+    border: 1px solid #ad9f9f
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ffffff;
+    outline: 0;
+    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+}
+
+.send {
+    color: #fff;
+    background-color: #ff0000;
+    border-color: #ff0000
+}
+
+.send:hover {
+    color: #fff;
+    background-color: #f50202;
+    border-color: #f50202
+}
+
+.rating {
+    display: flex;
+    margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+    float: left
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 19px;
+    font-size: 25px;
+    color: #ffc107!important;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+</style>
               <form id="filtro" class="trip-form" data-tramo="{{tramo}}"">
                 <div class="row">
                   <div class="form-group col-md-3">
@@ -94,10 +174,38 @@
                   </div>
                 </div>
               </div>
+
+          <form class="cmxform" id="commentForm" method="get" action="">
+          <fieldset>
+            <div class="card" id="comentar">
+                <div class="row">
+                    <div class="col-2"> <img src="/images/usuario.png" width="70" class="rounded-circle mt-2"> </div>
+                    <div class="col-10">
+                        <div class="comment-box ml-2">
+                            <h4>Añadir comentario</h4>
+                            <div class="rating"> <input type="radio" name="rating" value="5" id="star_5"><label for="star_5">☆</label> <input type="radio" name="rating" value="4" id="star_4"><label for="star_4">☆</label> <input type="radio" name="rating" value="3" id="star_3"><label for="star_3">☆</label> <input type="radio" name="rating" value="2" id="star_2"><label for="star_2">☆</label> <input type="radio" name="rating" value="1" id="star_1"><label for="star_1">☆</label> </div>
+                            <div class="comment-area">
+                              <textarea id="ctext" name="ctext" class="form-control" placeholder="Escribe aquí tu comentario" rows="4"></textarea>
+                              {# <label for="ctext">Máximo 300 caracteres</label> #}
+                            </div>
+                            <div class="comment-btns mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="pull-left"> <button class="btn btn-success btn-sm">Enviar</button> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </fieldset>
+          </form>
             {# </div>
         </div>
       </div> #}
 {% endblock %}
 {% block lib %}
   <script src="{{ asset('js/lib/lib-reserva.js') }}"></script>
+  <script src="{{ asset('https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js') }}"></script>
 {% endblock %}
