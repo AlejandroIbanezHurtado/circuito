@@ -183,15 +183,14 @@
                     <div class="col-10">
                         <div class="comment-box ml-2">
                             <h4>Añadir comentario</h4>
-                            <div class="rating"> <input type="radio" name="rating" value="5" id="star_5"><label for="star_5">☆</label> <input type="radio" name="rating" value="4" id="star_4"><label for="star_4">☆</label> <input type="radio" name="rating" value="3" id="star_3"><label for="star_3">☆</label> <input type="radio" name="rating" value="2" id="star_2"><label for="star_2">☆</label> <input type="radio" name="rating" value="1" id="star_1"><label for="star_1">☆</label> </div>
+                            <div class="rating" id="puntuacion" puntuacion="0"> <input type="radio" name="rating" value="5" id="star_5"><label for="star_5">☆</label> <input type="radio" name="rating" value="4" id="star_4"><label for="star_4">☆</label> <input type="radio" name="rating" value="3" id="star_3"><label for="star_3">☆</label> <input type="radio" name="rating" value="2" id="star_2"><label for="star_2">☆</label> <input type="radio" name="rating" value="1" id="star_1"><label for="star_1">☆</label> </div>
                             <div class="comment-area">
                               <textarea id="ctext" name="ctext" class="form-control" placeholder="Escribe aquí tu comentario" rows="4"></textarea>
-                              {# <label for="ctext">Máximo 300 caracteres</label> #}
                             </div>
                             <div class="comment-btns mt-2">
                                 <div class="row">
                                     <div class="col-6">
-                                        <div class="pull-left"> <button class="btn btn-success btn-sm">Enviar</button> </div>
+                                        <div class="pull-left"> <button id="publicar" type="button" class="btn btn-success btn-sm">Publicar</button> </div>
                                     </div>
                                 </div>
                             </div>

@@ -66,4 +66,28 @@ class ReservaController extends AbstractController
         $comentarios = $repositoryValoracion->valoracionesPorId($id);
         return new Response(json_encode($comentarios));
     }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("api/insertaComentario", name="insertaComentario")
+     */
+    public function insertaComentario(ManagerRegistry $doctrine): Response
+    {
+        $repositoryValoracion = $doctrine->getRepository(ValoracionCoche::class);
+        $repositoryUsuario = $doctrine->getRepository(Usuario::class);
+
+        if(empty($_SESSION))
+        {
+            session_start();
+        }
+        $correo = $_SESSION['_sf2_attributes']['_security.last_username'];
+        
+        $user = $repositoryUsuario->findOneBy(array('email' => $correo));
+        $valoracion = $_POST['valoracion'];
+        $comentario = $_POST['comentario'];
+        $coche = $_POST['coche'];
+
+        $comentarios = $repositoryValoracion->crearComentario($user->getId(),$valoracion,$comentario,$coche);
+        return new Response(json_encode($user));
+    }
 }

@@ -19,6 +19,31 @@ class ValoracionCocheRepository extends ServiceEntityRepository
         parent::__construct($registry, ValoracionCoche::class);
     }
 
+    public function crearComentario($user,$valoracion,$comentario,$coche)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $registros = array();
+        $sql = "select detalle_reserva.id from valoracion_coche inner join detalle_reserva on detalle_reserva.id = valoracion_coche.detalle_reserva_id inner join reserva on reserva.id = detalle_reserva.reserva_id where reserva.usuario_id = ${user} and EXISTS (select * from detalle_reserva inner join reserva on reserva.id = detalle_reserva.reserva_id where reserva.usuario_id = ${user} and detalle_reserva.coche_id = ${coche})";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetchAll();
+
+        $id_detalle = $registros[0]["id"];
+        if(empty($registros))
+        {
+            $sql = "INSERT INTO valoracion_coche (detalle_reserva_id,valoracion,comentario) VALUES (${id_detalle},${valoracion},'${comentario}')";
+            $stmt = $conn->prepare($sql);
+            $resultSet = $stmt->execute();
+        }
+        else{
+            $sql = "UPDATE valoracion_coche inner join detalle_reserva on valoracion_coche.detalle_reserva_id = detalle_reserva.id inner join reserva on reserva.id = detalle_reserva.reserva_id set valoracion_coche.comentario = '${comentario}', valoracion_coche.valoracion = ${valoracion} where detalle_reserva.id = ${id_detalle}";
+            $stmt = $conn->prepare($sql);
+            $resultSet = $stmt->execute();
+        }
+        return $registros;
+    }
+
     public function findMejoresValoraciones()
     {
         $conn = $this->getEntityManager()->getConnection();

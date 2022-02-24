@@ -2,6 +2,33 @@ $(function(){
     var botonFinal = $("#btnPagarFinal");
     var botonPagar = $("#btnPagar");
     var comentar = $("#comentar");
+    var botonPublicar = $("#publicar");
+
+    $("input[name='rating']").on("click",function(){
+        $("#puntuacion").attr("puntuacion",$(this).attr("value"));
+    })
+
+    botonPublicar.on("click",function(){
+        val = $("#puntuacion").attr("puntuacion");
+        if(val=="0")
+        {
+            alert("Selecciona tu valoracion pulsando en las estrellas");
+        }
+        else{
+            $.post("/api/insertaComentario",
+            {
+              comentario: $("#ctext").val(),
+              valoracion: $("#puntuacion").attr("puntuacion"),
+              coche: $(".contenedorCoches").first().attr("id").split("_")[1]
+            },
+            function(){
+                $("fieldset").empty();
+                muestraComentarios();
+            });
+        }
+        
+    })
+
     $("#commentForm").validate({
         rules: {
           ctext: {
@@ -14,33 +41,37 @@ $(function(){
             }
           }
       });
-    id = $(".contenedorCoches").attr("id").split("_")[1];
-    $.getJSON("/api/obtenComentarios/"+id,function(result){
-        for(j=0;j<result.length;j++)
-        {
-            console.log(result);
-            carta = $("<div class='card'></div>");
-            fila = $("<div class='row'></div>");
-            src = "/images/usuario.png";
-            if(result[j].imagen!=null) src="/"+result[j].imagen;
-            img = $("<div class='col-2'> <img src="+src+" width='70' class='rounded-circle mt-2'> </div>");
-            col = $("<div class='col-10'></div>");
-            contCom = $("<div class='comment-box ml-2'></div>");
-            user = $("<h4>"+result[j].nombre+" "+result[j].apellidos+"</h4>");
-            estrellas = $("<div class='rating'></div>");
-            for(i=0;i<parseInt(result[j].valoracion);i++)
+
+    muestraComentarios();
+    function muestraComentarios()
+    {
+        id = $(".contenedorCoches").attr("id").split("_")[1];
+        $.getJSON("/api/obtenComentarios/"+id,function(result){
+            for(j=0;j<result.length;j++)
             {
-                estrellas.append($("<i class='bi bi-star text-warning my-4'></i>"));
+                console.log(result);
+                carta = $("<div class='card'></div>");
+                fila = $("<div class='row'></div>");
+                src = "/images/usuario.png";
+                if(result[j].imagen!=null) src="/"+result[j].imagen;
+                img = $("<div class='col-2'> <img src="+src+" width='70' class='rounded-circle mt-2'> </div>");
+                col = $("<div class='col-10'></div>");
+                contCom = $("<div class='comment-box ml-2'></div>");
+                user = $("<h4>"+result[j].nombre+" "+result[j].apellidos+"</h4>");
+                estrellas = $("<div class='rating'></div>");
+                for(i=0;i<parseInt(result[j].valoracion);i++)
+                {
+                    estrellas.append($("<i class='bi bi-star text-warning my-4'></i>"));
+                }
+                col.append(contCom.append(user).append(estrellas));
+                com = $("<div class='comment-area'> <textarea readonly class='form-control' rows='4'>"+result[j].comentario+"</textarea> </div>");
+                if(result[j].comentario!=null && result[j].comentario!="") col.append(com);
+                carta.append(fila.append(img).append(col));
+                comentar.after(carta);
             }
-            col.append(contCom.append(user).append(estrellas));
-            com = $("<div class='comment-area'> <textarea readonly class='form-control' rows='4'>"+result[j].comentario+"</textarea> </div>");
-            if(result[j].comentario!=null && result[j].comentario!="") col.append(com);
-            carta.append(fila.append(img).append(col));
-            comentar.after(carta);
-        }
-        
-    })
-    
+            
+        })
+    }
 
     vectorFecha = $("#dia").val().split("/");
     dia = vectorFecha[0];
