@@ -19,6 +19,7 @@ class ReservaController extends AbstractController
     {
         $repositoryCoche = $doctrine->getRepository(Coche::class);
 
+        $tramo = (($_GET['fin']-$_GET['inicio'])/60000)/30;
         $coche = $repositoryCoche->buscarPorId($id);
         $dia = date("d/m/Y",($_GET['inicio'])/1000);
         $horaInicio = date("H:i",($_GET['inicio']+3600000)/1000);
@@ -27,7 +28,8 @@ class ReservaController extends AbstractController
             'dia' => $dia,
             'horaInicio' => $horaInicio,
             'horaFin' => $horaFin,
-            'coche' => $coche[0]
+            'coche' => $coche[0],
+            'tramo' => $tramo
         ]);
     }
 }

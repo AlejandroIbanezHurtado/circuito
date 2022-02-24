@@ -89,4 +89,9 @@ class DetalleReserva implements JsonSerializable
     public function jsonSerialize() {
         return get_object_vars($this);
     }
+
+    public function __toString()
+    {
+        return strval($this->id);
+    }
 }

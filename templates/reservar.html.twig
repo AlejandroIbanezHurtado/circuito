@@ -6,7 +6,7 @@
     {# <div class="container">
         <div class="row">
           <div class="col-12"> #}
-              <form class="trip-form">
+              <form id="filtro" class="trip-form" data-tramo="{{tramo}}"">
                 <div class="row">
                   <div class="form-group col-md-3">
                     <label for="dia">Día</label>
@@ -39,13 +39,17 @@
                     <p>Potencia: {{coche.potencia}} CV</p>
                     <p>Cilindrada: {{coche.cilindrada}} cm3</p>
                     <p>Velocidad máxima: {{coche.velocidad}} km/h</p>
+                    <p class="precio" value={{coche.precio * tramo }}>Precio: {{coche.precio * tramo }}€</p>
                     </div>
                 </div>
               </div>
-                <div class="row m-5">
+                <div class="row m-5" id="ultimafila">
+                  <div class="col-12 m-5 d-flex flex-row-reverse">
+                  <span id="total" class="mx-5" value="{{coche.precio * tramo}}">Precio total:{{coche.precio * tramo}}€<span>
+                  </div>
                   <div class="col-12">
-                    <input type="button" value="Pagar" data-bs-toggle='modal' data-bs-target='#exampleModal' class="btn btn-danger float-right" id="btnPagar">
-                    <select id="cf-2" class="form-select form-control float-left col-3" aria-label="Default select example">
+                    <input type="button" value="Pagar" data-bs-toggle='modal' data-bs-target='#exampleModal' class="btn btn-success float-right" id="btnPagar">
+                    <select id="cf-2" class="form-select form-control float-left col-3 mb-4" aria-label="Default select example">
                       <option selected value="0">-Añade otro coche-</option>
                     </select>
                   </div>

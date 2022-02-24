@@ -21,12 +21,12 @@ class CocheCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            AssociationField::new('modelo'),
-            NumberField::new('precio'),
-            NumberField::new('potencia'),
-            NumberField::new('cilindrada'),
-            NumberField::new('velocidad')
+            IdField::new('id')->hideOnForm()->setTextAlign('right'),
+            AssociationField::new('modelo')->setTextAlign('center'),
+            NumberField::new('precio')->setTextAlign('right'),
+            NumberField::new('potencia')->setTextAlign('right'),
+            NumberField::new('cilindrada')->setTextAlign('right'),
+            NumberField::new('velocidad')->setTextAlign('right')
         ];
     }
     

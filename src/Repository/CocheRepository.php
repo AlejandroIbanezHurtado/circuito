@@ -124,7 +124,7 @@ class CocheRepository extends ServiceEntityRepository
         $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.*, modelo.imagen from coche inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where coche.id not in (SELECT detalle_reserva.coche_id FROM reserva inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id WHERE (reserva.fecha_inicio BETWEEN '${fecha_inicio}' AND '${fecha_fin}') and (reserva.fecha_fin BETWEEN '${fecha_inicio}' AND '${fecha_fin}'))";
         if($marca!="false") $sql = $sql." and marca.id = '${marca}'";
         if($buscar!="false") $sql = $sql." and modelo.nombre like '${buscar}%'";
-        if($orden!="false") $sql = $sql." order by '${orden}'";
+        if($orden!="false") $sql = $sql." order by coche.precio ${orden} ";
 
         
         // dd($sql);
@@ -148,6 +148,16 @@ class CocheRepository extends ServiceEntityRepository
         return $registros;
     }
 
+
+    public function buscarCocheId($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "select marca.nombre as 'marca', modelo.nombre as 'modelo', coche.id, modelo.imagen, coche.precio, coche.cilindrada, coche.potencia, coche.velocidad from coche inner join modelo on coche.modelo_id = modelo.id inner join marca on marca.id = modelo.marca_id where coche.id = ${id}";
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery();
+        $registros = $resultSet->fetch();
+        return $registros;
+    }
 
     // /**
     //  * @return Coche[] Returns an array of Coche objects

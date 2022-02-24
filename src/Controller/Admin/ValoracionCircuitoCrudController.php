@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\ValoracionCircuito;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -27,4 +29,9 @@ class ValoracionCircuitoCrudController extends AbstractCrudController
         ];
     }
     
+    public function configureActions(Actions $actions): Actions
+    {
+        return parent::configureActions($actions)
+            ->disable(Action::NEW);
+    }
 }

@@ -50,4 +50,14 @@ class CocheController extends AbstractController
         return new Response(json_encode($obj));
     }
 
+    /**
+     * @Route("api/obtenVehiculo/{id}", name="obtenVehiculoId")
+     */
+    public function obtenVehiculo(ManagerRegistry $doctrine, $id): Response
+    {
+        $repositoryCoche = $doctrine->getRepository(Coche::class);
+        $obj = $repositoryCoche->buscarCocheId($id);
+        return new Response(json_encode($obj));
+    }
+
 }

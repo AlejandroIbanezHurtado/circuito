@@ -20,9 +20,9 @@ class CircuitoCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            IntegerField::new('tramo','Duración del tramo (m)'),
-            NumberField::new('precio_circuito','Precio/tramo'),
+            IdField::new('id')->hideOnForm()->setTextAlign('right'),
+            IntegerField::new('tramo','Duración del tramo (m)')->setTextAlign('right'),
+            NumberField::new('precio_circuito','Precio/tramo')->setTextAlign('right'),
             TextField::new('foto'),
         ];
     }

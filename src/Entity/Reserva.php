@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use DateTime;
+use DateInterval;
 use JsonSerializable;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservaRepository;
 use Doctrine\Common\Collections\Collection;
@@ -59,8 +61,9 @@ class Reserva implements JsonSerializable
 
     public function __construct()
     {
-        // $date = new DateTime();
-        $this->fecha = new DateTime();
+        $date = new DateTime();
+        $date->add(new DateInterval('PT1H'));
+        $this->fecha = $date;
         $this->detalleReservas = new ArrayCollection();
     }
 

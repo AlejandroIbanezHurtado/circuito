@@ -18,7 +18,7 @@ class MarcaCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->setTextAlign('right'),
             TextField::new('nombre'),
         ];
     }

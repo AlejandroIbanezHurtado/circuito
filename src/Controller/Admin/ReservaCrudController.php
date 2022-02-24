@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reserva;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -28,6 +30,12 @@ class ReservaCrudController extends AbstractCrudController
             TimeField::new('fecha_fin','Fecha de fin')->hideWhenCreating(),
             NumberField::new('precio')->hideOnForm()->hideWhenCreating()
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return parent::configureActions($actions)
+            ->disable(Action::NEW);
     }
     
 }

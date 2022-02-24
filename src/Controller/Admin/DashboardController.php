@@ -14,6 +14,7 @@ use App\Entity\ValoracionCircuito;
 use App\Controller\Admin\MarcaCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -53,13 +54,13 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Marcas', 'fas fa-list', Marca::class);
-        yield MenuItem::linkToCrud('Modelos', 'fas fa-list', Modelo::class);
-        yield MenuItem::linkToCrud('Coches', 'fas fa-list', Coche::class);
-        yield MenuItem::linkToCrud('Usuarios', 'fas fa-list', Usuario::class);
+        yield MenuItem::linkToCrud('Marcas', 'fa fa-circle-thin', Marca::class);
+        yield MenuItem::linkToCrud('Modelos', 'fa fa-circle-thin', Modelo::class);
+        yield MenuItem::linkToCrud('Coches', 'fa fa-car', Coche::class);
+        yield MenuItem::linkToCrud('Usuarios', 'fas fa-user', Usuario::class);
         yield MenuItem::linkToCrud('Circuito', 'fas fa-list', Circuito::class);
-        yield MenuItem::linkToCrud('Reservas', 'fas fa-list', Reserva::class);
-        yield MenuItem::linkToCrud('Valoracion circuito', 'fas fa-list', ValoracionCircuito::class);
-        yield MenuItem::linkToCrud('Valoracion coche', 'fas fa-list', ValoracionCoche::class);
+        yield MenuItem::linkToCrud('Reservas', 'fa fa-clock-o', Reserva::class);
+        yield MenuItem::linkToCrud('Valoracion circuito', '	fa fa-comment-o', ValoracionCircuito::class);
+        yield MenuItem::linkToCrud('Valoracion coche', '	fa fa-comment-o', ValoracionCoche::class);
     }
 }

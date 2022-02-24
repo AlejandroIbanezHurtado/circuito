@@ -44,10 +44,13 @@ $(function(){
     })
 
     btnBuscar.on("click",function(pagina, filas){
-        if($("#cf-2").val()==0 || $("#cf-5").val()==0)
+        ini = parseInt($("#cf-2").val().split(":")[0] + $("#cf-2").val().split(":")[1]);
+        fin = parseInt($("#cf-5").val().split(":")[0] + $("#cf-5").val().split(":")[1]);
+        if(($("#cf-2").val()==0 || $("#cf-5").val()==0) || (ini>=fin))
         {
             $("#modalHora").find(".modal-body").children().remove();
             $("#modalHora").find(".modal-body").append("<h2>Selecciona hora de inicio y hora de fin</h2>");
+            $("#modalHora").find(".modal-body").append("<p>La hora de inicio debe ser menor que la hora de fin</p>");
             $("#modalHora").modal("show");
         }
         else{
@@ -130,10 +133,13 @@ $(function(){
                 velocidad = $("<li><span>Velocidad.máx:</span><span class='spec'>"+result.coches[i].velocidad+" km/h</span></li>");
                 boton = $("<div class='d-flex action'><a class='btn btn-danger text-white'>Reservar</a></div>");
                 boton.on("click",function(){
-                    if($("#cf-2").val()==0 || $("#cf-5").val()==0)
+                    ini = parseInt($("#cf-2").val().split(":")[0] + $("#cf-2").val().split(":")[1]);
+                    fin = parseInt($("#cf-5").val().split(":")[0] + $("#cf-5").val().split(":")[1]);
+                    if(($("#cf-2").val()==0 || $("#cf-5").val()==0) || (ini>=fin))
                     {
                         $("#modalHora").find(".modal-body").children().remove();
                         $("#modalHora").find(".modal-body").append("<h2>Selecciona hora de inicio y hora de fin</h2>");
+                        $("#modalHora").find(".modal-body").append("<p>La hora de inicio debe ser menor que la hora de fin</p>");
                         $("#modalHora").modal("show");
                     }
                     else{
@@ -190,10 +196,13 @@ $(function(){
                 velocidad = $("<li><span>Velocidad.máx:</span><span class='spec'>"+result.coches[i].velocidad+" km/h</span></li>");
                 boton = $("<div class='d-flex action'><a class='btn btn-danger text-white'>Reservar</a></div>");
                 boton.on("click",function(){
-                    if($("#cf-2").val()==0 || $("#cf-5").val()==0)
+                    ini = parseInt($("#cf-2").val().split(":")[0] + $("#cf-2").val().split(":")[1]);
+                    fin = parseInt($("#cf-5").val().split(":")[0] + $("#cf-5").val().split(":")[1]);
+                    if(($("#cf-2").val()==0 || $("#cf-5").val()==0) || (ini>=fin))
                     {
                         $("#modalHora").find(".modal-body").children().remove();
                         $("#modalHora").find(".modal-body").append("<h2>Selecciona hora de inicio y hora de fin</h2>");
+                        $("#modalHora").find(".modal-body").append("<p>La hora de inicio debe ser menor que la hora de fin</p>");
                         $("#modalHora").modal("show");
                     }
                     else{

@@ -19,7 +19,7 @@ class ModeloCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id')->hideOnForm()->setTextAlign('right'),
             TextField::new('nombre'),
             AssociationField::new('marca'),
             ImageField::new('imagen')->setUploadDir('public/bd')
