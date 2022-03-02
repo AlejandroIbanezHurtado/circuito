@@ -144,25 +144,26 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                    <form id="modalTarjeta">
                       <div class="row gx-3">
                                 <div class="col-12">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">Titular de la tarjeta</p> <input class="form-control mb-3" type="text" placeholder="Titular">
+                                        <p class="text mb-1">Titular de la tarjeta</p> <input class="form-control mb-3" type="text" name="titular" placeholder="Titular">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">Nº tarjeta</p> <input class="form-control mb-3" type="text" placeholder="1234 5678 435678">
+                                        <p class="text mb-1">Nº tarjeta</p> <input class="form-control mb-3" type="text" name="tarjeta" placeholder="1234 5678 435678">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">Fecha de expiración</p> <input class="form-control mb-3" type="text" placeholder="MM/YYYY" autocomplete="off">
+                                        <p class="text mb-1">Fecha de expiración</p> <input type="text" name="fecha" class="form-select form-control calendario" readonly>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="d-flex flex-column">
-                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" maxlength="3" placeholder="***"  autocomplete="off" required>
+                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" maxlength="3" name="cvv" placeholder="***"  autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -170,12 +171,13 @@
                                 </div>
                             </div>
                         </div>
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
 
-          <form class="cmxform" id="commentForm" method="get" action="">
+          <form class="cmxform" id="commentForm" action="">
           <fieldset>
             <div class="card" id="comentar">
                 <div class="row">

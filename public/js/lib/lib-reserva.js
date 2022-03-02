@@ -22,7 +22,7 @@ $(function(){
               coche: $(".contenedorCoches").first().attr("id").split("_")[1]
             },
             function(){
-                $("fieldset").empty();
+                $("fieldset").children().slice(1).remove();
                 muestraComentarios();
             });
         }
@@ -39,6 +39,45 @@ $(function(){
             ctext: {
               maxlength: "Máximo 300 caracteres!"
             }
+          }
+      });
+
+      $("#modalTarjeta").validate({
+        rules: {
+          titular: {
+            required : true,
+            maxlength: 35
+          },
+          tarjeta: {
+            maxlength: 18,
+            minlength: 13
+          },
+          fecha: {
+            required : true,
+            date : true
+          },
+          cvv: {
+            maxlength: 3,
+            minlength: 3
+          }
+        },
+        messages: {
+            titular: {
+              maxlength: "Máximo 35 caracteres!",
+              required: "Este campo es obligatorio"
+            },
+            tarjeta: {
+                maxlength: "Máximo 18 caracteres!",
+                minlength: "Mínimo 13 caracteres"
+              },
+              fecha: {
+                date: "Fecha incorrecta",
+                required: "Este campo es obligatorio"
+              },
+              cvv: {
+                maxlength: "Máximo 3 caracteres!",
+                required: "Mínimo 3 caracteres"
+              }
           }
       });
 
