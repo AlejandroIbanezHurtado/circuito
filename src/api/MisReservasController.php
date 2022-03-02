@@ -31,10 +31,25 @@ class MisReservasController extends AbstractController
         $entityManager = $doctrine->getManager();
         $repositoryReserva = $doctrine->getRepository(Reserva::class);
         $repositoryDetalleReserva = $doctrine->getRepository(DetalleReserva::class);
-        $reserva = $repositoryDetalleReserva->findOneBy(['coche' => $id]);
-        $entityManager->remove($reserva);
+        $detalleReserva = $repositoryDetalleReserva->findOneBy(['coche' => $id]);
+        $id_reserva = $detalleReserva->getReserva();
+        $entityManager->remove($id_reserva);
+        $entityManager->remove($detalleReserva);
         $entityManager->flush();
         // dd(json_encode($doctrine));
+        return new Response(json_encode($doctrine));
+    }
+
+    /**
+     * @Route("/api/borraReservaCircuito/{id}", name="borrarReservaCircuito")
+     */
+    public function borrarReservaCircuito(ManagerRegistry $doctrine, $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $repositoryReserva = $doctrine->getRepository(Reserva::class);
+        $reserva = $repositoryReserva->findOneBy(['id' => $id]);
+        $entityManager->remove($reserva);
+        $entityManager->flush();
         return new Response(json_encode($doctrine));
     }
 }

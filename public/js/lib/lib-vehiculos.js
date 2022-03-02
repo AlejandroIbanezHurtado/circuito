@@ -10,7 +10,6 @@ $(function(){
     
 
     $.getJSON("/api/obtenVehiculos",function(result){
-        console.log(result);
         n_coches.text(result.n_coches);
         for(i=0;i<result.marcas.length;i++)
         {
@@ -108,7 +107,6 @@ $(function(){
             }
         }
         $.getJSON("/api/obtenVehiculosPaginadosNoFechas/"+fechaInicio+"/"+fechaFin+"/"+pagina+"/"+filas+"/"+marca+"/"+buscar+"/"+ordenar,function(result){
-            console.log(result);
             tablon.children().remove();
             for(i=0;i<result.coches.length;i++)
             {
@@ -228,4 +226,57 @@ $(function(){
             }
         })
     }
+
+    $.getJSON("/api/dameFechaSesion",function(result){
+        console.log(result);
+        if(result.fecha!=null)
+        {
+            fecha = result.fecha.split(" ")[0].replaceAll("-","/");
+            ini = result.fecha.split(" ")[1];
+            $("#dia").datepicker("setDate",fecha);
+            $("#cf-2").val(ini);
+            if(ini.split(":")[1]="30")
+            {
+                fin = parseInt(ini.split(":")[0])+1 + ":00";
+            }
+            else{
+                fin = ini.split(":")[0] +":30";
+            }
+            $("#cf-5").val(fin);
+
+            if(result.marca!=null)
+            {
+                $("#cf-3 option[id=marca_"+result.marca+"]").attr("selected",true);
+            }
+            $("#btnBuscar").click();
+        }
+    })
+
+    $("#circuito").on("click",function(){
+        ini = parseInt($("#cf-2").val().split(":")[0] + $("#cf-2").val().split(":")[1]);
+        fin = parseInt($("#cf-5").val().split(":")[0] + $("#cf-5").val().split(":")[1]);
+        if(($("#cf-2").val()==0 || $("#cf-5").val()==0) || (ini>=fin))
+        {
+            $("#modalHora").find(".modal-body").children().remove();
+            $("#modalHora").find(".modal-body").append("<h2>Selecciona hora de inicio y hora de fin</h2>");
+            $("#modalHora").find(".modal-body").append("<p>La hora de inicio debe ser menor que la hora de fin</p>");
+            $("#modalHora").modal("show");
+        }
+        else{
+            horaInicio = $("#cf-2").val();
+            horaInicio = horaInicio.split(":");
+            fechaInicio = new Date($("#dia").val());
+            fechaInicio.setHours(horaInicio[0]);
+            fechaInicio.setMinutes(horaInicio[1]);
+
+            horaFin = $("#cf-5").val();
+            horaFin = horaFin.split(":");
+            fechaFin = new Date($("#dia").val());
+            fechaFin.setHours(horaFin[0]);
+            fechaFin.setMinutes(horaFin[1]);
+
+            rutaReserva = "reservar/circuito?inicio="+fechaInicio.getTime()+"&fin="+fechaFin.getTime();
+            window.location.href = rutaReserva;
+        }
+    })
 })

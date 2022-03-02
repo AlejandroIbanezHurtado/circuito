@@ -25,13 +25,13 @@ class IndexController extends AbstractController
         $marcas = $repositoryMarca->findAll();
         $n_coches = $repositoryCoche->countCoche();
 
-        $data = [];
-        foreach ($marcas as &$valor) {
-            $data[] = $valor->getNombre();
-        }
+        // $data = [];
+        // foreach ($marcas as &$valor) {
+        //     $data[] = $valor->getNombre();
+        // }
         $aleatorios = $repositoryValoracionCoche->findMejoresValoraciones();
         $comentarios = $repositoryValoracionCoche->valoracionesAleatorias();
-        $obj->marcas = $data;
+        $obj->marcas = $marcas;
         $obj->n_coches = $n_coches;
         $obj->coches = $aleatorios;
         $obj->comentarios = $comentarios;

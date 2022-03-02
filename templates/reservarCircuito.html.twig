@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+{% block titulo %}
+  <h1 id="titulo">Reservar</h1>
+{% endblock %}
+{% block body %}
+<style>
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 20px;
+    width: 100%;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 6px;
+    -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+}
+
+.comment-box {
+    padding: 5px
+}
+
+.comment-area textarea {
+    resize: none;
+    border: 1px solid #ad9f9f
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #ffffff;
+    outline: 0;
+    box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+}
+
+.send {
+    color: #fff;
+    background-color: #ff0000;
+    border-color: #ff0000
+}
+
+.send:hover {
+    color: #fff;
+    background-color: #f50202;
+    border-color: #f50202
+}
+
+.rating {
+    display: flex;
+    margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+    float: left
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 19px;
+    font-size: 25px;
+    color: #ffc107!important;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+</style>
+              <form id="filtro" class="trip-form" data-tramo="{{tramo}}"">
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <label for="dia">Día</label>
+                    <input type="text" id="dia" class="form-select form-control" value = "{{ dia }}" readonly>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="horaInicio">Hora inicio</label>
+                    <input type="text" id="horaInicio" class="form-select form-control" value = "{{ horaInicio }}" readonly>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="horaFin">Hora fin</label>
+                    <input type="text" id="horaFin" class="form-select form-control" value = "{{ horaFin }}" readonly>
+                  </div>
+                </div>
+              </form>
+              <div>
+                <div class="row align-items-center mb-4">
+                  <div class="col-md-6">
+                    {# <h3 class="m-0">{{coche.nombre}}</h3> #}
+                    <h1 class="m-0">Circuito</h1>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        {# <img src="/bd/488.jpg"></img> #}
+                        <div style='background-image: url({{foto}}); width: 100%; background-size: 70%; background-repeat: no-repeat; background-position: center; height:210px'></div>
+                    </div>
+                    <div class="col-lg-6">
+                    <p>Longitud: 3850 m</p>
+                    <p>Curvas: 13</p>
+                    <p>Inauguración: 1 de julio de 1967</p>
+                    
+                    <p class="precio" value={{precio * tramo }}>Precio: {{precio * tramo }}€</p>
+                    </div>
+                </div>
+              </div>
+                <div class="row m-5" id="ultimafila">
+                  <div class="col-12 m-5 d-flex flex-row-reverse">
+                  <span id="total" class="mx-5" value="{{precio * tramo}}">Precio total:{{precio * tramo}}€<span>
+                  </div>
+                  <div class="col-12">
+                    <input type="button" value="Pagar" data-bs-toggle='modal' data-bs-target='#exampleModal' class="btn btn-success float-right" id="btnPagar">
+                  </div>
+                </div>
+              
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Pagar reserva</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form id="modalTarjeta">
+                      <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Titular de la tarjeta</p> <input class="form-control mb-3" type="text" name="titular" placeholder="Titular">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Nº tarjeta</p> <input class="form-control mb-3" type="text" name="tarjeta" placeholder="1234 5678 435678">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Fecha de expiración</p> <input type="text" name="fecha" class="form-select form-control calendario" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">CVV</p> <input class="form-control mb-3 pt-2 " type="password" maxlength="3" name="cvv" placeholder="***"  autocomplete="off" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="btn btn-success mb-3" id="btnPagarFinal"> <span class="ps-3">Pagar {{precio * tramo }}€</span></div>
+                                </div>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <form class="cmxform" id="commentForm" action="">
+          <fieldset>
+            <div class="card" id="comentar">
+                <div class="row">
+                    <div class="col-2"> <img src="/images/usuario.png" width="70" class="rounded-circle mt-2"> </div>
+                    <div class="col-10">
+                        <div class="comment-box ml-2">
+                            <h4>Añadir comentario</h4>
+                            <div class="rating" id="puntuacion" puntuacion="0"> <input type="radio" name="rating" value="5" id="star_5"><label for="star_5">☆</label> <input type="radio" name="rating" value="4" id="star_4"><label for="star_4">☆</label> <input type="radio" name="rating" value="3" id="star_3"><label for="star_3">☆</label> <input type="radio" name="rating" value="2" id="star_2"><label for="star_2">☆</label> <input type="radio" name="rating" value="1" id="star_1"><label for="star_1">☆</label> </div>
+                            <div class="comment-area">
+                              <textarea id="ctext" name="ctext" class="form-control" placeholder="Escribe aquí tu comentario" rows="4"></textarea>
+                            </div>
+                            <div class="comment-btns mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="pull-left"> <button id="publicar" type="button" class="btn btn-success btn-sm">Publicar</button> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </fieldset>
+          </form>
+            {# </div>
+        </div>
+      </div> #}
+{% endblock %}
+{% block lib %}
+  <script src="{{ asset('js/lib/lib-reservaCircuito.js') }}"></script>
+  <script src="{{ asset('https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js') }}"></script>
+{% endblock %}

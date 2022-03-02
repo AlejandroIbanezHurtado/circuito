@@ -10,7 +10,7 @@ $(function(){
         n_coches.text(result.n_coches);
         for(i=0;i<result.marcas.length;i++)
         {
-            op = $("<option>").text(result.marcas[i]).val(result.marcas[i]);
+            op = $("<option>").text(result.marcas[i].nombre).attr("id","marca_"+result.marcas[i].id).attr("value",result.marcas[i].nombre);
             marcas.append(op);
         }
 
@@ -47,6 +47,33 @@ $(function(){
             }
             $(element).find(".d-flex").after(valoracion);
         })
+        
+    })
+
+    $("#btnBuscar").on("click",function(ev){
+        ev.preventDefault();
+        
+        fecha = $("#dia").val().replaceAll("/","-");
+        //concatenar el dia
+        fecha = fecha +" "+ $("#cf-2").val();
+        url = "/api/insertaFechaSesion/"+fecha;
+        if($("#cf-3").val()!="0")
+        {
+            marca = marcas.find("option[value="+marcas.val()+"]").attr("id").split("_")[1];
+            url = "/api/insertaFechaSesion/"+fecha+"/"+marca;
+        }
+        if($("#cf-2").val()=="0")
+        {
+            $("#modalHora").find(".modal-body").children().remove();
+            $("#modalHora").find(".modal-body").append("<h2>Selecciona hora de inicio</h2>");
+            $("#modalHora").modal("show");
+        }
+        else{
+            console.log(url);
+            $.post(url);
+            window.location.href = "/vehiculos#filtro";
+        }
+        
         
     })
 })

@@ -36,6 +36,7 @@ class ValoracionCocheRepository extends ServiceEntityRepository
             $stmt2 = $conn->prepare($sql2);
             $resultSet2 = $stmt2->executeQuery();
             $registros2 = $resultSet2->fetchAll();
+            if(empty($registros2)) return $registros=NULL;
 
             $id_detalle = $registros2[0]["id"];
             
@@ -78,7 +79,7 @@ class ValoracionCocheRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = "select valoracion_coche.*, usuario.nombre, usuario.apellidos, usuario.imagen from valoracion_coche inner join detalle_reserva on detalle_reserva.id = valoracion_coche.detalle_reserva_id inner join reserva on reserva.id = detalle_reserva.reserva_id inner join usuario on usuario.id = reserva.usuario_id where detalle_reserva.coche_id = ${id}";
+        $sql = "select valoracion_coche.*, usuario.nombre, usuario.apellidos, usuario.imagen from valoracion_coche inner join detalle_reserva on detalle_reserva.id = valoracion_coche.detalle_reserva_id inner join reserva on reserva.id = detalle_reserva.reserva_id inner join usuario on usuario.id = reserva.usuario_id where detalle_reserva.coche_id = ${id} order by detalle_reserva.id desc";
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
 

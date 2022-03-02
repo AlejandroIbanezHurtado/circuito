@@ -24,7 +24,8 @@ class ReservaRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $registros = array();
-        $sql = "select coche.id, modelo.imagen, coche.precio as 'precio_coche', reserva.fecha, reserva.precio, reserva.fecha_inicio, reserva.fecha_fin, marca.nombre as 'marca', modelo.nombre as 'modelo' from reserva inner join usuario on usuario.id = reserva.usuario_id inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id inner join coche on coche.id = detalle_reserva.coche_id inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where usuario.email = '${correo}' order by reserva.fecha desc";
+        // $sql = "select coche.id, modelo.imagen, coche.precio as 'precio_coche', reserva.fecha, reserva.precio, reserva.fecha_inicio, reserva.fecha_fin, marca.nombre as 'marca', modelo.nombre as 'modelo' from reserva inner join usuario on usuario.id = reserva.usuario_id inner join detalle_reserva on detalle_reserva.reserva_id = reserva.id inner join coche on coche.id = detalle_reserva.coche_id inner join modelo on modelo.id = coche.modelo_id inner join marca on marca.id = modelo.marca_id where usuario.email = '${correo}' order by reserva.fecha desc";
+        $sql = "select coche.id, reserva.id as 'reserva_id', modelo.imagen, coche.precio as 'precio_coche', reserva.fecha, reserva.precio, reserva.fecha_inicio, reserva.fecha_fin, marca.nombre as 'marca', modelo.nombre as 'modelo' from reserva left join usuario on usuario.id = reserva.usuario_id left join detalle_reserva on detalle_reserva.reserva_id = reserva.id left join coche on coche.id = detalle_reserva.coche_id left join modelo on modelo.id = coche.modelo_id left join marca on marca.id = modelo.marca_id where usuario.email = '${correo}' order by reserva.fecha desc";
         $stmt = $conn->prepare($sql);
         $resultSet = $stmt->executeQuery();
         $registros = $resultSet->fetchAll();
