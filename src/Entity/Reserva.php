@@ -180,4 +180,9 @@ class Reserva implements JsonSerializable
     public function jsonSerialize() {
         return get_object_vars($this);
     }
+
+    public function __toString(): string
+    {
+        return $this->id;
+    }
 }

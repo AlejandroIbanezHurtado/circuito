@@ -22,7 +22,7 @@ class ModeloCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm()->setTextAlign('right'),
             TextField::new('nombre'),
             AssociationField::new('marca'),
-            ImageField::new('imagen')->setUploadDir('public/bd')
+            ImageField::new('imagen')->setUploadDir('public/bd')->setBasePath('/bd')
         ];
     }
 }
