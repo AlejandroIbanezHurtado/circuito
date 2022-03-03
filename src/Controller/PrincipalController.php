@@ -89,4 +89,14 @@ class PrincipalController extends AbstractController
         return $this->render('mis_reservas.html.twig', [
         ]);
     }
+
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/altamasiva/usuarios", name="altamasivausuarios")
+     */
+    public function altaMasivaUsuario(): Response
+    {
+        return $this->render('altamasivausuarios.html.twig', [
+        ]);
+    }
 }

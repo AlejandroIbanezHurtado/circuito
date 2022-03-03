@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block titulo %}
+  <h1>Altas masivas</h1>
+{% endblock %}
+{% block body %}
+    <form action="" enctype="multipart/form-data" class="altaMasiva">
+        <input type="file" accept=".csv" id="subirCsv"/>
+        <br>
+        <textarea id="area" cols="30" rows="10"></textarea>
+        <br><br><br>
+        <input type="submit" value="Guardar" class="botones" id="boton">
+    </form>
+{% endblock %}

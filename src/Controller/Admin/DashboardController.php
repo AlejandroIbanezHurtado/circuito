@@ -61,7 +61,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Circuito', 'fas fa-list', Circuito::class);
         yield MenuItem::linkToCrud('Reservas', 'fa fa-clock-o', Reserva::class);
         yield MenuItem::linkToCrud('Detalle reservas', 'fa fa-clock-o', DetalleReserva::class);
-        yield MenuItem::linkToCrud('Valoracion circuito', '	fa fa-comment-o', ValoracionCircuito::class);
-        yield MenuItem::linkToCrud('Valoracion coche', '	fa fa-comment-o', ValoracionCoche::class);
+        yield MenuItem::linkToCrud('Valoracion circuito', 'fa fa-comment-o', ValoracionCircuito::class);
+        yield MenuItem::linkToCrud('Valoracion coche', 'fa fa-comment-o', ValoracionCoche::class);
+        yield MenuItem::linkToUrl('Alta masiva usuarios','fas fa-user','altamasiva/usuarios');
     }
 }
