@@ -82,6 +82,9 @@
                         {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                          {% if app.user.roles[0]=="ROLE_ADMIN" %}
+                            <button class="dropdown-item" type="button"><a href="/admin" class="text-dark">Panel de administración</a></button>
+                          {% endif %}
                           <button class="dropdown-item" type="button"><a href="/misreservas" class="text-dark">Mis reservas</a></button>
                           <button class="dropdown-item" type="button"><a href="/perfil" class="text-dark">Editar perfil</a></button>
                           <button class="dropdown-item" type="button"><a href="/logout" class="text-danger">Cerrar sesión</a></button>
