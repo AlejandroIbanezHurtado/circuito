@@ -1663,3 +1663,15 @@ h1, h2, h3, h4, h5,
 .slideOne input[type=checkbox]:checked + label {
 	left: 37px;
 }
+
+#btnInicioAuto:hover {
+  color: white;
+  position: relative;
+  animation: myfirst 0.8s linear 0s alternate;
+}
+
+@keyframes myfirst {
+  0%   {color:#636363; left:0px; top:0px;}
+  25%  {left:20px; top:0px;}
+  50%  {left:-20px; top:0px;}
+}

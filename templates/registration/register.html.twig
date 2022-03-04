@@ -7,7 +7,8 @@
 {% block body %}
 <style>
 input.aceptar{
-    height: 20px
+    height: 20px;
+    width: 15px;
 }
 </style>
 
@@ -26,19 +27,19 @@ input.aceptar{
                         {% endfor %}
                         <div class="col-md-12 mb-4">
                             <label for="registration_form_email" class="text-white">Correo:</label>
-                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form select form-control'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form select form-control w-50'}}) }}
                         </div>
                         <div class="col-md-12 mb-4">
                             <label for="registration_form_nombre" class="text-white">Nombre:</label>
-                            {{ form_widget(registrationForm.nombre, {'attr': {'class': 'form select form-control'}}) }}
+                            {{ form_widget(registrationForm.nombre, {'attr': {'class': 'form select form-control w-25'}}) }}
                         </div>
                         <div class="col-md-12 mb-4">
                             <label for="registration_form_apellidos" class="text-white">Apellidos:</label>
-                            {{ form_widget(registrationForm.apellidos, {'attr': {'class': 'form select form-control'}}) }}
+                            {{ form_widget(registrationForm.apellidos, {'attr': {'class': 'form select form-control w-50'}}) }}
                         </div>
                         <div class="col-md-12 mb-4">
                             <label for="registration_form_plainPassword" class="text-white">Contraseña:</label>
-                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form select form-control'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form select form-control w-25'}}) }}
                         </div>
                         <div class="col-md-6 mb-4">
                             <label for="registration_form_agreeTerms" class="text-white">Acepto los términos y condiciones</label>

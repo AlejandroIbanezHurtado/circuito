@@ -7,6 +7,19 @@
 {% endblock %}
 {% block body %}
 <style>
+#btnBuscar:hover{
+  -ms-transform: rotate(20deg); /* IE 9 */
+  transform: rotate(20deg);
+}
+.testimonial-2 {
+  width: 200px;
+  height: 100px;
+  transition: background-color 2s ease-out 100ms
+}
+
+.testimonial-2:hover {
+  background-color: #d6d6d6;
+}
 .slide{
   min-height: 0px;
 }
@@ -81,7 +94,7 @@
                 </div>
                 <div class="row">
                   <div class="col-lg-6">
-                    <input type="submit" value="Buscar" class="btn btn-danger" id="btnBuscar">
+                    <input type="submit" value="Buscar" class="btn btn-danger animated fadeInDown" id="btnBuscar">
                   </div>
                 </div>
               </form>
